@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "nombre": "Centro Médico Veterinario Buenos Aires",
+    "direccion": "Av. Boedo 840, C1228 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.62246017340913,
+    "lng": -58.41604893069148,
+    "telefono": "011 4931-4425",
+    "imagen": "/assets/images/veterinarias/veterinaria-1.png",
+    "link": "https://www.instagram.com/centrovetbuenosaires/"
+  },
+  {
+    "id": 2,
+    "nombre": "CAVI Clínica Veterinaria",
+    "direccion": "Av. La Plata 402, C1235 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.61926456677184,
+    "lng": -58.4281911182422,
+    "telefono": "3533-8108",
+    "imagen": "/assets/images/veterinarias/veterinaria-2.png",
+    "link": "https://cavi.com.ar/"
+  },
+  {
+    "id": 3,
+    "nombre": "Veterinaria UCIcoop",
+    "direccion":
+      "Av. José María Moreno 635, C1424AAG Cdad. Autónoma de Buenos Aires",
+    "lat": -34.62593787430421,
+    "lng": -58.434401116390696,
+    "telefono": "011 4924-0026",
+    "imagen": "/assets/images/veterinarias/veterinaria-3.png",
+    "link": "https://www.instagram.com/ucicoop/"
+  },
+  {
+    "id": 4,
+    "nombre": "Veterinaria Panda",
+    "direccion": "Ave. Ruiz Huidobro 4771, C1430 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.554730831491426,
+    "lng": -58.49462365872152,
+    "telefono": "011 5263-0176",
+    "imagen": "/assets/images/veterinarias/veterinaria-4.png",
+    "link": "https://medicinaintegral.veterinariapanda.com.ar/"
+  },
+  {
+    "id": 5,
+    "nombre": "Veterinaria del Libertador",
+    "direccion": "Blanco Encalada 1420, C1428 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.55333374807784,
+    "lng": -58.449358160572835,
+    "telefono": "4788-0888",
+    "imagen": "/assets/images/veterinarias/veterinaria-5.png",
+    "link": "https://www.instagram.com/veterinarialibertador/"
+  },
+  {
+    "id": 6,
+    "nombre": "Clínica Veterinaria Cilap",
+    "direccion": "Av. Angel Gallardo 75, C1405 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.602468569611766,
+    "lng": -58.43363597221212,
+    "telefono": "011 3137-0132",
+    "imagen": "/assets/images/veterinarias/veterinaria-6.png",
+    "link": "https://www.instagram.com/clinicaveterinariacilap/"
+  },
+  {
+    "id": 7,
+    "nombre": "Centro Asistencial Veterinario San Marcos",
+    "direccion": "Av. Díaz Vélez 4730, C1405 Cdad. Autónoma de Buenos Aires",
+    "lat": -34.608735235472466,
+    "lng": -58.43343338940672,
+    "telefono": "011 4981-1873",
+    "imagen": "/assets/images/veterinarias/veterinaria-7.png",
+    "link": "https://cavsanmarcos.com/"
+  }
+]

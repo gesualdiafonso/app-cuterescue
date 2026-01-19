@@ -1,6 +1,6 @@
 // Hook que va orchestrar todo el contexto, va remover la lógica del supabase adentro de los componentes
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { petService } from "../services/pet.services";
 import { locationService  } from "../services/location.services";
 import { useSavedData } from "../contexts/SaveDataContext";
@@ -52,7 +52,13 @@ export default function usePetManager(){
         } finally {
             setLoading(false);
         }
-    }, [user, selectedPet]);
+    }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            fetchAllData();
+        }
+    }, [user, fetchAllData])
 
     // 2. Create
     const addPet = async (form, file) => {
@@ -102,6 +108,7 @@ export default function usePetManager(){
         pets,
         loading,
         selectedPet,
+        setSelectedPet,
         addPet,
         updatePet,
         deletePet,

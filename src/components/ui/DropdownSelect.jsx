@@ -4,7 +4,7 @@ import { useSavedData } from "../../contexts/SaveDataContext";
 import { StyleSheet, View } from "react-native";
 
 
-export default function PetSelector({ pets }) {
+export default function DropdownSelect({ pets }) {
     const { selectedPet, setSelectedPet } = useSavedData();
 
     // Mapeando los pets para el formato que el componente Dropdown espera

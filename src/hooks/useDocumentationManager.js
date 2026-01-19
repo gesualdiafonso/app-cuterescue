@@ -24,7 +24,7 @@ export default function useDocumentation() {
             const data = await documentationService.getByPetId(user.id, selectedPet.id);
 
             setDocs({
-                tipo_vacuna: data.filter(d => d.tipo === "tipo_vacuna"),
+                vacunas: data.filter(d => d.tipo === "vacuna" || d.tipo === "tipo_vacuna"),
                 presentacion: data.filter(d => d.tipo === "presentacion"),
                 antiparasitarios: data.filter(d => d.tipo === "antiparasitarios")
             });
@@ -44,6 +44,13 @@ export default function useDocumentation() {
         fetchDocs();
     }, [selectedPet, fetchDocs]);
 
+    useEffect(() => {
+        if (selectedPet?.id) {
+            // Chame sua função de busca aqui
+            fetchDocs(selectedPet.id);
+        }
+    }, [selectedPet?.id]);
+
     const saveDoc = async (formData, editId = null) => {
         const registro = { ...formData, user_id: user.id, mascota_id: selectedPet.id }
         await documentationService.createOrUpdated(registro, editId);
@@ -58,6 +65,7 @@ export default function useDocumentation() {
     return {
         docs,
         loading,
+        selectedPet,
         saveDoc,
         removeDoc,
         refresh: fetchDocs

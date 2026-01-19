@@ -16,7 +16,7 @@ import * as Notifications from 'expo-notifications';
 
 export default function DocVet(){
 
-    const { pets, refreshPets } = usePetManager();
+    const { pets, refreshPets, setSelectedPet } = usePetManager();
     const { docs, loading, saveDoc, selectedPet } = useDocumentation();
     const [ modalOpen, setModalOpen ] = React.useState(false);
 
@@ -32,6 +32,19 @@ export default function DocVet(){
         refreshPets();
     }, []);
 
+    useEffect(() => {
+        if (pets.length > 0 && !selectedPet) {
+            console.log("Forçando seleção do primeiro pet:", pets[0].nombre);
+            setSelectedPet(pets[0]);
+        }
+    }, [pets, selectedPet]);
+
+    const allDocs = [
+    ...(docs?.vacunas || []), 
+    ...(docs?.presentacion || []), 
+    ...(docs?.antiparasitarios || [])
+];
+
     return(
         <ScrollView>
             <Container>
@@ -45,43 +58,43 @@ export default function DocVet(){
                 ) : selectedPet ? (
                     // Verificamos si hay documentos
                     <>
-                        {[...docs.vacunas, ...docs.presentacion, ...docs.antiparasitarios].length > 0 ? ( 
-                            [...docs.vacunas, ...docs.presentacion, ...docs.antiparasitarios].map((item) => (
-                                <DocCard key={item.id}>
-                                    <CardHeader>
-                                        <View>
-                                            <LabelText>
-                                                <Stronger> 
-                                                    {item.tipo === 'vacuna' ? 'Vacuna: ' : 
-                                                        item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
-                                                </Stronger> 
-                                                <Text>
-                                                    {item.tipo_vacuna || item.producto || item.antiparasitario}
-                                                </Text>
-                                            </LabelText>
-                                            <LabelText><Stronger>Fecha de aplicación:</Stronger></LabelText>
-                                            <ValueText>{item.fecha_aplicacion}</ValueText>
-                                            <LabelText><Stronger>Fecha de vencimiento:</Stronger></LabelText>
-                                            <ValueText>{item.fecha_vencimiento}</ValueText>
-                                        </View>
+                        {allDocs.length > 0 ? (
+                                allDocs.map((item) => (
+                                    <DocCard key={item.id}>
+                                        <CardHeader>
+                                            <View style={{ flex: 1 }}>
+                                                <LabelText>
+                                                    <Stronger> 
+                                                        {item.tipo === 'vacuna' ? 'Vacuna: ' : 
+                                                            item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
+                                                    </Stronger> 
+                                                    <Text>
+                                                        {item.tipo_vacuna || item.producto || item.antiparasitario}
+                                                    </Text>
+                                                </LabelText>
+                                                <LabelText><Stronger>Fecha de aplicación:</Stronger></LabelText>
+                                                <ValueText>{item.fecha_aplicacion}</ValueText>
+                                                <LabelText><Stronger>Fecha de vencimiento:</Stronger></LabelText>
+                                                <ValueText>{item.fecha_vencimiento}</ValueText>
+                                            </View>
 
-                                        <View style={{ alignItems: 'flex-end'}}>
-                                            <LabelText style={{ marginBottom: 5 }}>Alerta:</LabelText>
-                                            <Badge status={item.alerta}>
-                                                <BadgeText>{item.alerta}</BadgeText>
-                                            </Badge>
-                                        </View>
-                                    </CardHeader>
+                                            <View style={{ alignItems: 'flex-end'}}>
+                                                <LabelText style={{ marginBottom: 5 }}>Alerta:</LabelText>
+                                                <Badge status={item.alerta}>
+                                                    <BadgeText>{item.alerta}</BadgeText>
+                                                </Badge>
+                                            </View>
+                                        </CardHeader>
 
-                                    <InfoButton>
-                                        <BadgeText style={{ fontSize: 12 }}>Ver información</BadgeText>
-                                    </InfoButton>
-                                </DocCard>
-                            ))
-                        ) : (
+                                        <InfoButton>
+                                            <BadgeText style={{ fontSize: 12 }}>Ver información</BadgeText>
+                                        </InfoButton>
+                                    </DocCard>
+                                ))
+                            ) : (
                             <Text>No hay registro de vacunación de mascotas agregadas.</Text>
                         )}
-                        <AddCard onPress={() => setModalOpen(true)}>
+                        <AddCard style={{ width: "100%"}} onPress={() => setModalOpen(true)}>
                             <Text>+</Text>
                             <Text>Agregar vacunas</Text>
                         </AddCard>

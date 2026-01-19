@@ -108,14 +108,14 @@ export const CardAdd = styled.View`
 `;
 
 export const SelectContainer = styled.View`
-    width: 100%;
-    height: 50px;
+    width: 90%;
+    height: 55px;
     background-color: #f0f0f0;
     border-radius: 12px;
     border-width: 1px;
     border-color: #22678d;
-    margin: 10px 20px;
-    overflow: hidden;
+    margin: 10px auto;
+    justify-content: center;
 `;
 
 export const StyledPickerLabel = styled.Text`
@@ -127,10 +127,11 @@ export const StyledPickerLabel = styled.Text`
 `;
 
 export const DocCard = styled.View`
+    width: 100%;
     background-color: #1f2937;
     border-radius: 20px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-top: 15px;
     elevation: 5;
     shadow-color: #000;
     shadow-offset: 0px 2px;
@@ -146,6 +147,7 @@ export const CardHeader = styled.View`
 `;
 
 export const LabelText = styled.Text`
+    width: 100%;
     color: #ffff;
     font-size: 14px;
     font-weight: bold;

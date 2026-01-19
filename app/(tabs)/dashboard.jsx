@@ -43,33 +43,33 @@ export default function Dashboard() {
 
     if (loading) return <ActivityIndicator size='large' style={{ flex: 1 }} />
     return (
-        <Container>
-            <ScrollView>
-                <View style={styles.layoutContainer}>
+        <ScrollView>
+             <View style={styles.layoutContainer}>
+                <Container>
                     <TextH1>Página de Inicio</TextH1>
                     <View style={styles.layoutImage}>
                         <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + profile?.apellido} />
                     </View>
                     <TextH2>{profile?.nombre} {profile?.apellido}</TextH2>
                     <Link title="Visualizar Perfil" onPress={handleNavegate}/>
-                </View>
+                </Container>
+            </View>
 
-                <View style={styles.layoutPets}>
-                    <Text style={styles.title}>Mascotas</Text>
-                    {loadingPets ? (
-                        <ActivityIndicator color="#22687b" />
-                    ) : (
-                        <Pets pets={pets}/>
-                    )}
-                </View>
-            </ScrollView>
-        </Container>
+            <View style={styles.layoutPets}>
+                <Text style={styles.title}>Mascotas</Text>
+                {loadingPets ? (
+                    <ActivityIndicator color="#22687b" />
+                ) : (
+                    <Pets pets={pets} />
+                )}
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     layoutContainer:{
-        margin: '15px auto',
+        margin: '100px auto',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
         marginRight: 'auto'
     },
     layoutPets: {
+        marginHorizontal: 25,
+        marginVertical: 15,
         marginBottom: 15,
         justifyContent: 'center',
     }

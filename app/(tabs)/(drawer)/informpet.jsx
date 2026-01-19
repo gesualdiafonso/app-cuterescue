@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react"
 import { View, Text, ScrollView, ActivityIndicator } from "react-native"
 import { Picker } from "@react-native-picker/picker";
-
+import DropdownSelect from "../../../src/components/ui/DropdownSelect";
 import usePetManager from "../../../src/hooks/usePetManager"
 import Pets from "../../../src/components/Pets";
 import DatosPet from "../../../src/components/DatosPet";
@@ -20,16 +20,24 @@ export default function InformPet(){
     // Función de calcular idade
     const countBirthday = (fechaNacimiento) => {
         if (!fechaNacimiento) return "Edad desconocida";
-        const day = new Date();
-        const birth = new Date(fechaNacimiento);
-        let years = day.getFullYear() - birth.getMonth();
-        const m = day.getMonth() - birth.getMonth();
-        if (m < 0 || (m === 0 && day.getDate() < birth.getDate())){
-            years--;
+        const today = new Date();
+        const birthDate = new Date(fechaNacimiento);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
         }
-
-        return `${years} años`
+        return `${age >= 0 ? age : 0} años`;
     }
+
+    useEffect(() => {
+        if (pets && pets.length > 0 && !selectedPet) {
+            setSelectedPet(pets[0]);
+        }
+    }, [pets]);
+
+    console.log("Pets carregados:", pets.length);
     
     if (loading) return <ActivityIndicator size="large" color="#22678d" style={{ flex: 1 }} />;
 
@@ -42,24 +50,16 @@ export default function InformPet(){
                 
                 <StyledPickerLabel>Seleccionar Mascota:</StyledPickerLabel>
                 <SelectContainer>
-                    <Picker
-                        selectedValue={selectedPet?.id}
-                        onValueChange={(itemValue) => {
-                            const wherePet = pets.find(p => p.id === itemValue);
-                            setSelectedPet(wherePet);
-                        }}
-                    >
-                        {pets.map(pet => (
-                            <Picker.Item key={pet.id} label={pet.nombre} value={pet.id} />
-                        ))}
-                    </Picker>
+                    <DropdownSelect pets={pets} />
                 </SelectContainer>
                 {selectedPet ? (
                     <View>
                         <View>
                             <ImageRoundedAvatar src={selectedPet.foto_url} alt={selectedPet.nombre} style={{ height: 150, width: 150 }} />
                             <TextH3>{selectedPet.nombre}</TextH3>
-                            <Paragraph style={{ color: 'black', fontWeight: 'bold' }}>{selectedPet.especie} • {countBirthday(selectedPet.fecha_nacimiento)}</Paragraph>
+                            <Paragraph style={{ color: 'black', fontWeight: 'bold' }}>
+                                {selectedPet.especie} • {countBirthday(selectedPet.fecha_nacimiento)}
+                            </Paragraph>
                         </View>
                         {/* Componente de información pet */}
                         <LineBottom />

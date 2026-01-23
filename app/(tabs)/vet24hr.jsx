@@ -6,14 +6,54 @@ import { Container, CardVet, CardBody, Card, TextH2 } from "../../src/styles/gen
 
 import MapVet from "../../src/components/ui/maps/MapVet";
 import { getVeterinarias } from "../../src/services/veterinarias.services";
+import DropdownVet from "../../src/components/ui/DropdownVet";
+
+import { calculateDistance } from "../../src/utils/CalculateDistance";
+
+import { locationService } from "../../src/services/location.services";
+import { authService } from "../../src/services/auth.services";
 
 export default function Vet24hrs(){
 
-    const veterinarias = getVeterinarias();
+    const [userLocation, setUserLocation] = useState(null);
 
-    const [selectedVet, setSelectedVet] = useState(veterinarias[0]);
+    const [sortedVets, setSortedVets] = useState([]);
+
+    //const veterinarias = getVeterinarias();
+
+    // const [selectedVet, setSelectedVet] = useState(veterinarias[0]);
+    const [selectedVet, setSelectedVet] = useState({});
 
     const scrollViewRef = useRef(null);
+
+    useEffect(() => {
+        const loadVetsAndLocation = async () => {
+            try {
+                // pegar el usuario logado por pirmero
+                const user = await authService.getCurrentUser();
+                if (!user) throw new Error("Usuario no logado");
+
+                const allVets = getVeterinarias();
+
+                // 1. Intentamos obtener la ubicación del Supbabase o GPS
+                const loc = await locationService.getUserLocation(user.id);
+                setUserLocation(loc);
+
+                // 2. calculamos la distancia al ordernar
+                const vetsWithDistance = allVets.map(vet => ({
+                    ...vet,
+                    distance: calculateDistance(loc.lat, loc.lng, vet.lat, vet.lng)
+                })).sort((a, b) => a.distance - b.distance);
+
+                setSortedVets(vetsWithDistance);
+                setSelectedVet(vetsWithDistance[0]);
+            } catch (error) {
+                console.error("Error al cargar veterinarias y ubicación:", error);
+            }
+        }
+
+        loadVetsAndLocation();
+    }, []);
 
     const handleSelectVet = (vet) => {
         setSelectedVet(vet);
@@ -32,13 +72,22 @@ export default function Vet24hrs(){
                         lat={selectedVet.lat}
                         lng={selectedVet.lng}
                         nombre={selectedVet.nombre}
+                        userLocation={userLocation}
                     />
                 </View>
 
                 <Text style={styles.header}> Veterinarios 24hrs </Text>
-
+                <View style={{ width: "100%", marginBottom: 20 }}>
+                    <Text> Elija la veterinaria mas cerca a su ubicación. </Text>
+                    <DropdownVet 
+                        style={{ marginTop: 10, marginBottom: 20 }}
+                        vets={sortedVets}
+                        onSelect={handleSelectVet}
+                        selectedValue={selectedVet.id}
+                    />
+                </View>
                 <View>
-                    {veterinarias.map((vet) => (
+                    {sortedVets.map((vet) => (
                         <TouchableOpacity 
                             key={vet.id}
                             onPress={() => handleSelectVet(vet)}

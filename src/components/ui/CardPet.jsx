@@ -18,7 +18,8 @@ export default function CardPet({ pet }){
                 style={{
                     borderWidth: isSelected ? 2 : 0,
                     borderColor: "#71dd5b",
-                    marginRight: 15
+                    marginRight: 15,
+                    marginTop: 10
                 }}
             >
                 <CardImage>

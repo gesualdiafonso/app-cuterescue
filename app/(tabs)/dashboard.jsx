@@ -8,11 +8,14 @@ import { useAuth } from "../../src/contexts/AuthContext"
 import { userService } from "../../src/services/user.services";
 import Pets from "../../src/components/Pets";
 import usePetManager from "../../src/hooks/usePetManager";
+import { useNavigation, useRouter } from "expo-router";
 
 export default function Dashboard() {
     const { user } = useAuth();
     const [ profile, setProfile ] = useState(null);
     const [ loading, setLoading ] = useState(true);
+    const navigation = useNavigation()
+    const router = useRouter()
 
     // Hook de pets
     const { pets, loading: loadingPets, refreshPets } = usePetManager();
@@ -39,6 +42,8 @@ export default function Dashboard() {
 
     const handleNavegate = () =>{
         // Botón para navegar
+        // navigation.navigate("/(drawer)")
+        router.push("/(drawer)")
     }
 
     if (loading) return <ActivityIndicator size='large' style={{ flex: 1 }} />

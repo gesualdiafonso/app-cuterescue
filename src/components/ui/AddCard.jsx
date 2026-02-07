@@ -127,7 +127,8 @@ export default function AddCard(){
                             <TextInput 
                                 style={styles.input} 
                                 value={form.especie} 
-                                onChangeText={ (val) => setForm({ ...form, especie: val }) } 
+                                onChangeText={ (val) => setForm({ ...form, especie: val }) }
+                                placeholder="Canino / Felino" 
                             />
 
                             <Text styles={styles.label}>Raza *</Text>
@@ -137,12 +138,27 @@ export default function AddCard(){
                                 onChangeText={ (val) => setForm({ ...form, raza: val }) } 
                             />
 
-                            <Text styles={styles.label}t>Peso *</Text>
+                            <Text styles={styles.label}>Fecha de nacimiento *</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                keyboardType="date"
+                                value={form.fecha_nacimiento} 
+                                onChangeText={ (val) => setForm({ ...form, fecha_nacimiento: val }) } 
+                            />
+
+                            <Text styles={styles.label}t>Peso (kg)*</Text>
                             <TextInput 
                                 style={styles.input} 
                                 keyboardType="numeric"
                                 value={form.peso} 
                                 onChangeText={ (val) => setForm({ ...form, peso: val }) } 
+                            />
+
+                            <Text styles={styles.label}>Color (kg)*</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                value={form.color} 
+                                onChangeText={ (val) => setForm({ ...form, color: val }) } 
                             />
 
                             <Text styles={styles.label}>Sexo *</Text>
@@ -151,6 +167,13 @@ export default function AddCard(){
                                 value={form.sexo} 
                                 onChangeText={ (val) => setForm({ ...form, sexo: val }) } 
                                 placeholder="Macho / Hembra"
+                            />
+
+                            <Text styles={styles.label}>Estado de salud *</Text>
+                            <TextInput 
+                                style={styles.input} 
+                                value={form.estado_salud} 
+                                onChangeText={ (val) => setForm({ ...form, estado_salud: val }) } 
                             />
 
                             <TouchableOpacity

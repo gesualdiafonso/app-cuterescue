@@ -2,6 +2,7 @@
 // Pet Seleccionado, Datos de Cargamento.
 // En expo se usa AsyncStorage
 import React, { createContext, useContext, useState, useEffect } from "react";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import AsyncStorage from "expo-sqlite/kv-store";
 
 const SavedDataContext = createContext();

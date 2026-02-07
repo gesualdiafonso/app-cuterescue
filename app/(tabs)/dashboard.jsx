@@ -9,6 +9,8 @@ import { userService } from "../../src/services/user.services";
 import Pets from "../../src/components/Pets";
 import usePetManager from "../../src/hooks/usePetManager";
 import { useNavigation, useRouter } from "expo-router";
+import EmergencyButton from "../../src/components/ui/EmergencyButton";
+import TravelButton from "../../src/components/ui/TravelButton";
 
 export default function Dashboard() {
     const { user } = useAuth();
@@ -57,6 +59,11 @@ export default function Dashboard() {
                     </View>
                     <TextH2>{profile?.nombre} {profile?.apellido}</TextH2>
                     <Link title="Visualizar Perfil" onPress={handleNavegate}/>
+
+                    <View style={styles.buttonLayout}>
+                        <TravelButton />
+                        <EmergencyButton />
+                    </View>
                 </Container>
             </View>
 
@@ -98,5 +105,10 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         marginBottom: 15,
         justifyContent: 'center',
+    },
+    buttonLayout: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: "100%"
     }
 });

@@ -6,11 +6,27 @@ import Maps from "../../src/components/Maps"
 import { useSavedData } from "../../src/contexts/SaveDataContext"
 import { locationService } from "../../src/services/location.services"
 import { Ionicons } from "@expo/vector-icons"
-
+import { useThemeStatus } from "../../src/contexts/ThemeContext";
+import EmergencyButton from "../../src/components/ui/EmergencyButton";
+import UbicationButton from "../../src/components/ui/UbicationButton";
+import useLocationManager from "../../src/hooks/useLocationManager";
+import ModalMailCapture from "../../src/components/ui/modals/ModalMailCapture"
 
 export default function Tracker(){
     const { selectedPet } = useSavedData();
-    const [ petLocation, setPetLocation ] = useState(null);
+
+    const { activateEmergency, status, resetStatus, themeColors } = useThemeStatus()
+
+    const { petLocation, setPetLocation, sendLocationEmail, isSending } = useLocationManager(selectedPet?.id);
+
+    const [showMailModal, setShowMailModal] = useState(false);
+
+    const handleMailAction = async () => {
+        const success = await sendLocationEmail();
+        if (success) {
+            setShowMailModal(true);
+        }
+    }
 
     useEffect(() => {
         if (selectedPet) {
@@ -52,13 +68,13 @@ export default function Tracker(){
                     </View>
 
                     <View style={styles.buttonRow}>
-                        <TouchableOpacity style={[styles.btnEmergency, styles.btn]}>
+                        {/* <TouchableOpacity style={[styles.btnEmergency, styles.btn, status === 'emergency' && {backgroundColor: "#2ecc71"}]}>
                             <Text style={styles.btnText}>Emergencia</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
+                        <EmergencyButton style={[styles.btnEmergency, styles.btn, status === 'emergency' && {backgroundColor: "#2ecc71"}]}  />
 
-                        <TouchableOpacity style={[styles.btnSend, styles.btn]}>
-                            <Text style={styles.btnText}>Enviar Ubiación</Text>
-                        </TouchableOpacity>
+                        <UbicationButton onPress={handleMailAction} loading={isSending} />
+                        <ModalMailCapture visible={showMailModal} onClose={() => setShowMailModal(false)}/>
                     </View>
                 </View>
             </SafeAreaView>
@@ -110,21 +126,5 @@ const styles = StyleSheet.create({
     buttonRow: { 
         flexDirection: 'row', 
         justifyContent: 'space-between' 
-    },
-    btn: {
-        flex: 0.48,
-        paddingVertical: 10,
-        borderRadius: 8,
-        alignItems: 'center'
-    },
-    btnEmergency: { 
-        backgroundColor: '#f39c12' 
-    },
-    btnSend: { 
-        backgroundColor: '#1a5262' 
-    },
-    btnText: { 
-        color: 'white', 
-        fontWeight: 'bold' 
     },
 });

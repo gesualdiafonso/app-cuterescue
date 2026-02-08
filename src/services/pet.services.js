@@ -54,7 +54,10 @@ export const petService = {
                 ...updateData,
                 foto_url: fotoUrl,
                 updated_at: new Date()
-            }).select().single();
+            })
+            .eq("id", petId)
+            .select()
+            .single();
 
         if (error) throw error;
 
@@ -71,9 +74,17 @@ export const petService = {
 
     // Upload de fotos para el Bucket
     async uploadPetPhoto(userId, file){
-        const fileName = `${userId}_${Date.now()}_${file.name || 'photo'}`;
+        const fileName = `${userId}_${Date.now()}.jpg`;
 
-        const { error: uploadError } = await supabase.storage.from("mascotas").upload(fileName, file);
+        const response = await fetch(file.uri);
+        const blob = await response.blob();
+
+        const { error: uploadError } = await supabase.storage
+            .from("mascotas")
+            .upload(fileName, blob, {
+                contentType: 'image/jpeg',
+                upset: true
+            });
 
         if (uploadError) throw uploadError;
 

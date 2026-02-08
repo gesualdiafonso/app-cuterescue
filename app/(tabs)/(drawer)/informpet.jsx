@@ -1,6 +1,6 @@
 // Pagina de información de mascotas
 import React, { useState, useEffect } from "react"
-import { View, Text, ScrollView, ActivityIndicator } from "react-native"
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from "react-native"
 import { Picker } from "@react-native-picker/picker";
 import DropdownSelect from "../../../src/components/ui/DropdownSelect";
 import usePetManager from "../../../src/hooks/usePetManager"
@@ -13,9 +13,14 @@ import {
     StyledPickerLabel,
     Container
 } from "../../../src/styles/general.styles";
+import EditInfoPet from "../../../src/components/ui/modals/EditInfoPet";
+import DeletPet from "../../../src/components/ui/modals/DeletPet";
 
 export default function InformPet(){
     const { pets, loading, selectedPet, setSelectedPet, refreshPets } = usePetManager();
+
+    const [editModal, setEditModal] = useState(false);
+    const [deleteModal,  setDeleteModal] = useState(false);
 
     // Función de calcular idade
     const countBirthday = (fechaNacimiento) => {
@@ -66,11 +71,37 @@ export default function InformPet(){
                         <View>
                             <DatosPet pet={selectedPet} />
                         </View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 20 }}>
+                            <TouchableOpacity 
+                                onPress={() => setEditModal(true)}
+                                style={{ backgroundColor: '#22687b', padding: 10, borderRadius: 8 }}
+                            >
+                                <Text style={{ color: '#fff' }}>Editar Información</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                                onPress={() => setDeleteModal(true)}
+                                style={{ borderColor: '#d9534f', borderWidth: 1, padding: 10, borderRadius: 8 }}
+                            >
+                                <Text style={{ color: '#d9534f' }}>Borrar Mascota</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 ) : (
                     <Paragraph> No tiene mascotas registradas!</Paragraph>
                 )}
+                <EditInfoPet 
+                    visible={editModal}
+                    onClose={() => setEditModal(false)}
+                    pet={selectedPet}
+                />
 
+                <DeletPet
+                    visible={deleteModal}
+                    onClose={() => setDeleteModal(false)}
+                    pet={selectedPet}
+                />
             </Container>
         </ScrollView>
     )

@@ -7,12 +7,16 @@ import { CardAdd, CardBody } from "../../styles/general.styles";
 import usePetManager from "../../hooks/usePetManager";
 import { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-
+import { Dropdown } from "react-native-element-dropdown";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Platform, Keyboard } from "react-native";
 
 export default function AddCard(){
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ image, setImage] = useState(null);
+    const [showPicker, setShowPicker] = useState(false);
+    const [date, setDate] = useState(new Date());
 
     // llamamos el hook
     const { addPet } = usePetManager();
@@ -29,25 +33,62 @@ export default function AddCard(){
         fecha_nacimiento: "",
     });
 
-    const handleOpen = () => setModalVisible(true);
+    // Datos para el dropdow
+    const especieData = [
+        { label: 'Canino', value: 'Canino' },
+        { label: 'Felino', value: 'Felino' }
+    ];
 
-    const handleClose = () => {
-        if (!isSubmitting) setModalVisible(false);
-    };
+    const sexoData = [
+        { label: 'Macho', value: 'Macho' },
+        { label: 'Hembra', value: 'Hembra' }
+    ];
+
 
     // Función para selecionar una image
     const pickImage = async () => {
-        let result = await ImagePicker.lunchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Image,
+        // lunch de image
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            qaulity: 0.7,
+            quality: 0.7
         });
 
         if (!result.canceled){
             setImage(result.assets[0]);
         }
     }
+
+    // Función para trabjar sobre el cambio de fecha
+    const onChangeDate = (event, selectedDate) => {
+        // Se o usuário clicar em cancelar, apenas fecha o picker
+        if (event.type === 'dismissed') {
+            setShowPicker(false);
+            return;
+        }
+
+        // CORREÇÃO: use selectedDate (o parâmetro que vem da função)
+        const currentDate = selectedDate || date;
+        
+        // No Android, precisamos fechar manualmente após selecionar
+        // setShowPicker(Platform.OS === 'ios'); 
+        if (Platform.OS === 'android'){
+            setShowPicker(false)
+        }
+
+        setDate(currentDate);
+
+        // Formateando para o estado do form
+        let fDate = currentDate.toISOString().split('T')[0];
+        setForm({ ...form, fecha_nacimiento: fDate });
+    };
+
+    const handleOpen = () => setModalVisible(true);
+
+    const handleClose = () => {
+        if (!isSubmitting) setModalVisible(false);
+    };
 
     const handleSave = async () => {
         // Validación simples
@@ -70,7 +111,10 @@ export default function AddCard(){
 
             if (success) {
                 Alert.alert("Sucesso", "Mascota agregada correctamente.");
-                setForm();
+                setForm({
+                    nombre: "", especie: "", raza: "", peso: "",
+                    sexo: "", color: "", estado_salud: "", fecha_nacimiento: ""
+                });
                 setImage(null);
                 setModalVisible(false);
             }
@@ -110,7 +154,7 @@ export default function AddCard(){
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                                 {image ? (
-                                    <Image src={{ uri: image.uri }} style={styles.previewImage} />
+                                    <Image source={{ uri: image.uri }} style={styles.previewImage} />
                                 ) : (
                                     <Text styles={styles.imagePickerText}>Seleccionar Foto</Text>
                                 )}
@@ -124,11 +168,14 @@ export default function AddCard(){
                             />
 
                             <Text>Especie *</Text>
-                            <TextInput 
-                                style={styles.input} 
-                                value={form.especie} 
-                                onChangeText={ (val) => setForm({ ...form, especie: val }) }
-                                placeholder="Canino / Felino" 
+                            <Dropdown
+                                style={styles.dropdown}
+                                data={especieData}
+                                labelField="label"
+                                valueField="value"
+                                placeholder="Seleccione la Especie"
+                                value={form.especie}
+                                onChange={item => setForm({...form, especie: item.value})}
                             />
 
                             <Text styles={styles.label}>Raza *</Text>
@@ -139,12 +186,52 @@ export default function AddCard(){
                             />
 
                             <Text styles={styles.label}>Fecha de nacimiento *</Text>
-                            <TextInput 
+                            <TouchableOpacity 
+                                style={styles.input} 
+                                onPress={() => {
+                                    Keyboard.dismiss();
+                                    console.log("Abrindo picker...")
+                                    setShowPicker(true)
+                                }}
+                            >
+                                <Text style={{ color: form.fecha_nacimiento ? '#000' : "#999" }}>
+                                    {form.fecha_nacimiento || "Selecione una fecha"}
+                                </Text>
+                            </TouchableOpacity>
+
+                            {showPicker && (
+                                <View style={{ 
+                                    backgroundColor: 'white', 
+                                    borderRadius: 10,
+                                    marginTop: 10,
+                                    borderWidth: 1,
+                                    borderColor: '#eee',
+                                    }}>
+                                    <DateTimePicker
+                                        value={date || new Date()}
+                                        mode="date"
+                                        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                        onChange={onChangeDate}
+                                        maximumDate={new Date()}
+                                        style={{ height: 200}}
+                                    />
+                                    {Platform.OS === 'ios' && (
+                                        <TouchableOpacity
+                                            onPress={() => setShowPicker(false)}
+                                            style={{ alignSelf: 'center', padding: 10 }}
+                                        >
+                                            <Text style={{ color: '#22487b', fontWeight: 'bold' }}>Confirmar Fecha</Text>
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
+                            )}
+
+                            {/* <TextInput 
                                 style={styles.input} 
                                 keyboardType="date"
                                 value={form.fecha_nacimiento} 
                                 onChangeText={ (val) => setForm({ ...form, fecha_nacimiento: val }) } 
-                            />
+                            /> */}
 
                             <Text styles={styles.label}t>Peso (kg)*</Text>
                             <TextInput 
@@ -162,11 +249,14 @@ export default function AddCard(){
                             />
 
                             <Text styles={styles.label}>Sexo *</Text>
-                            <TextInput 
-                                style={styles.input} 
-                                value={form.sexo} 
-                                onChangeText={ (val) => setForm({ ...form, sexo: val }) } 
-                                placeholder="Macho / Hembra"
+                            <Dropdown
+                                style={styles.dropdown}
+                                data={sexoData}
+                                labelField="label"
+                                valueField="value"
+                                placeholder="Selecione la Especie"
+                                value={form.sexo}
+                                onChange={item => setForm({...form, sexo: item.value})}
                             />
 
                             <Text styles={styles.label}>Estado de salud *</Text>
@@ -260,6 +350,15 @@ const styles = StyleSheet.create({
     },
     imagePickerText: {
         color: '#22687b'
+    },
+    dropdown: {
+        height: 50,
+        borderColor: "#ddd",
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        backgroundColor: "#fff",
+        marginBottom: 10,
     },
     saveButton: {
         backgroundColor: '#22687b',

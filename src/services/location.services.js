@@ -33,7 +33,7 @@ export const locationService = {
         const { error } = await supabase.from("localizacion").insert([{
             owner_id: userId,
             mascota_id: petId,
-            chip: "1111",
+            chip_id: "1111",
             direccion: baseLocation.direccion,
             codigoPostal: baseLocation.codigoPostal,
             provincia: baseLocation.provincia,
@@ -44,7 +44,10 @@ export const locationService = {
             created_at: new Date(),
         }]);
 
-        if (error) throw error;
+        if (error){
+            console.error("Error al criar localización inicial", error);
+            throw error;
+        };
 
         return true;
     },

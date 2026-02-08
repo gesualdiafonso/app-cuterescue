@@ -8,11 +8,18 @@ import { userService } from "../../../src/services/user.services"
 
 import { useAuth } from "../../../src/contexts/AuthContext"
 
+import EditInform from "../../../src/components/ui/modals/EditInform"
+
+import { Button, TouchableOpacity } from "react-native"
+
+import * as ImagePicker from 'expo-image-picker';
 
 export default function MiPerfil(){
     const { user } = useAuth();
     const [ profile, setProfile ] = useState(null);
     const [ loading, setLoading ] = useState(null);
+    const [isModalVisible, setModalVisible] = useState(false)
+
 
     const loadData = async () => {
         try {
@@ -24,6 +31,40 @@ export default function MiPerfil(){
             console.log(error);
         } finally {
             setLoading(false);
+        }
+    }
+
+    const handleChangeImage = async () => {
+        // Pedir permisión 
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted'){
+            Alert.alert("Permiso denegado", "Necesitamos acceso a las fotos.");
+            return;
+        }
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.5,
+        });
+
+        if (!result.canceled) {
+            try{
+                setLoading(true);
+                const selectedImage = result.assets[0];
+
+                // Llamamos el mismo servicio, enviando los datos
+                await userService.editProfile(user.id, profile, selectedImage);
+
+                Alert.alert("Éxito", "No se puede actualizar la foto.");
+                loadData();
+            } catch (error){
+                Alert.alert("Error", "No se puede actulizar la foto.");
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
         }
     }
 
@@ -39,7 +80,10 @@ export default function MiPerfil(){
                 </View>
 
                 <View >
-                    <Text>Cambiar imagem</Text>
+                    {/* Botão de trocar imagem ativado */}
+                    <TouchableOpacity onPress={handleChangeImage} style={{ marginTop: 10, alignItems: 'center' }}>
+                        <Text style={{ color: '#4A90E2', fontWeight: 'bold' }}>Cambiar imagen</Text>
+                    </TouchableOpacity>
                     <TextH1>{profile?.nombre + " " + profile?.apellido}</TextH1>
                 </View>
 
@@ -61,9 +105,23 @@ export default function MiPerfil(){
                     </View>
                 </View>
 
-                <View>
-                    <Text> Buttons para editar, ver mascotas y chip</Text>
+                <View style={{ marginTop: 20 }}>
+                    <TouchableOpacity 
+                        onPress={() => setModalVisible(true)}
+                        style={{ backgroundColor: '#4A90E2', padding: 15, borderRadius: 10, alignItems: 'center' }}
+                    >
+                        <Text style={{ color: '#fff', fontWeight: 'bold' }}>EDITAR PERFIL</Text>
+                    </TouchableOpacity>
                 </View>
+
+                {/* MODAL DE EDIÇÃO */}
+                <EditInform 
+                    visible={isModalVisible} 
+                    onClose={() => setModalVisible(false)}
+                    profileData={profile}
+                    onUpdateSuccess={loadData} // Recarrega a tela ao salvar
+                />
+
             </Container>
         </ScrollView>
     )

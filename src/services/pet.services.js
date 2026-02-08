@@ -74,16 +74,17 @@ export const petService = {
 
     // Upload de fotos para el Bucket
     async uploadPetPhoto(userId, file){
-        const fileName = `${userId}_${Date.now()}.jpg`;
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${userId}_${Date.now()}.${fileExt}`;
 
         const response = await fetch(file.uri);
-        const blob = await response.blob();
+        const arrayBuffer = await response.arrayBuffer();
 
         const { error: uploadError } = await supabase.storage
             .from("mascotas")
-            .upload(fileName, blob, {
-                contentType: 'image/jpeg',
-                upset: true
+            .upload(fileName, arrayBuffer, {
+                contentType: file.type || 'image/jpeg',
+                upsert: true
             });
 
         if (uploadError) throw uploadError;

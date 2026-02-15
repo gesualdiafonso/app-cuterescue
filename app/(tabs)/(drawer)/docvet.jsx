@@ -13,12 +13,21 @@ import FormDocVet from '../../../src/components/ui/modals/FormDocVet';
 import DropdownSelect from '../../../src/components/ui/DropdownSelect';
 import usePetManager from '../../../src/hooks/usePetManager';
 import * as Notifications from 'expo-notifications';
+import InfoDocPet from '../../../src/components/ui/modals/InfoDocPet';
 
 export default function DocVet(){
 
     const { pets, refreshPets, setSelectedPet } = usePetManager();
-    const { docs, loading, saveDoc, selectedPet } = useDocumentation();
+    const { docs, loading, saveDoc, removeDoc, selectedPet } = useDocumentation();
     const [ modalOpen, setModalOpen ] = React.useState(false);
+
+    const [infoModalOpen, setInfoModalOpen] = useState(false);
+    const [selectedDoc, setSelectedDoc] = useState(null);
+
+    const handleOpenInfo = (item) => {
+        setSelectedDoc(item);
+        setInfoModalOpen(true);
+    }
 
     // Garantimos que el pet sea cargado
     useEffect(() => {
@@ -69,7 +78,7 @@ export default function DocVet(){
                                                             item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
                                                     </Stronger> 
                                                     <Text>
-                                                        {item.tipo_vacuna || item.producto || item.antiparasitario}
+                                                        {item.tipo_vacuna || item.producto || item.antiparasitario || 'N/A'}
                                                     </Text>
                                                 </LabelText>
                                                 <LabelText><Stronger>Fecha de aplicación:</Stronger></LabelText>
@@ -86,7 +95,7 @@ export default function DocVet(){
                                             </View>
                                         </CardHeader>
 
-                                        <InfoButton>
+                                        <InfoButton onPress={() => handleOpenInfo(item)}>
                                             <BadgeText style={{ fontSize: 12 }}>Ver información</BadgeText>
                                         </InfoButton>
                                     </DocCard>
@@ -114,6 +123,17 @@ export default function DocVet(){
                         setModalOpen(false);
                     }}
                     tipo="vacuna"
+                />
+
+                <InfoDocPet 
+                    isOpen={infoModalOpen}
+                    item={selectedDoc}
+                    onClose={() => {
+                        setInfoModalOpen(false);
+                        setSelectedDoc(null);
+                    }}
+                    onUpdate={(data, id) => saveDoc(data, id)}
+                    onDelete={(id) => removeDoc(id)}
                 />
             </Container>
         </ScrollView>

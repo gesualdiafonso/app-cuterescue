@@ -24,9 +24,9 @@ export default function useDocumentation() {
             const data = await documentationService.getByPetId(user.id, selectedPet.id);
 
             setDocs({
-                vacunas: data.filter(d => d.tipo === "vacuna" || d.tipo === "tipo_vacuna"),
-                presentacion: data.filter(d => d.tipo === "presentacion"),
-                antiparasitarios: data.filter(d => d.tipo === "antiparasitarios")
+                vacunas: data.filter(d => d.tipo === "vacuna"),
+                presentacion: data.filter(d => d.tipo === "pipeta"),
+                antiparasitarios: data.filter(d => d.tipo === "antiparasitario")
             });
 
             // disparamos la notificaciones en background

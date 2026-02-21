@@ -56,7 +56,7 @@ function RootLayoutNav(){
 
     return (
         // headerShown: false esconde a barra de título superior do grupo principal
-        <Stack screenOptions={{headerShown: false}}>
+        <Stack screenOptions={{headerShown: false}} style={{ backgroundColor: "#fff"}}>
             {/* Antes de hecho login, inicializa la app con el grupo auth (grupo) */}
             <Stack.Screen name="(auth)" options={{ headerShown: false }}/>
 

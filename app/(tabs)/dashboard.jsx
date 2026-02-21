@@ -50,7 +50,7 @@ export default function Dashboard() {
 
     if (loading) return <ActivityIndicator size='large' style={{ flex: 1 }} />
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: "#fff" }} contentContainerStyle={{ flexGrow: 1 }}>
              <View style={styles.layoutContainer}>
                 <Container>
                     <TextH1>Página de Inicio</TextH1>

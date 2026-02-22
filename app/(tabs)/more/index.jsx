@@ -68,7 +68,7 @@ export default function More(){
                 <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + " " + profile?.apellido} />
             </View>
             <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: '#ccc', marginBottom: 10 }}>
-                <Text style={{ fontWeight: 'bold', color: '#22687B' }}>Hola! {profile?.nombre}</Text>
+                <Text style={{ fontWeight: 600, color: '#22687B' }}>Hola! {profile?.nombre}</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>{profile?.email}</Text>
             </View>
             
@@ -94,7 +94,10 @@ export default function More(){
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: "#FFF" },
+    container: { 
+        flex: 1, 
+        backgroundColor: "#FFF" 
+    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -111,11 +114,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 15
     },
-    logo: { width: 30, height: 30 },
-    userInfo: { flex: 1 },
-    userName: { fontSize: 18, fontWeight: 'bold', color: '#22687B' },
-    logoutLink: { color: '#7E3AF2', fontWeight: 'bold', marginTop: 4 },
-    menuContainer: { paddingHorizontal: 15 },
+    logo: { 
+        width: 30, 
+        height: 30 
+    },
+    userInfo: { 
+        flex: 1 
+    },
+    userName: { 
+        fontSize: 18, 
+        fontWeight: 600, 
+        color: '#22687B' 
+    },
+    logoutLink: { 
+        color: '#7E3AF2', 
+        fontWeight: 600, 
+        marginTop: 4 
+    },
+    menuContainer: { 
+        paddingHorizontal: 15 
+    },
     menuItems: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -124,6 +142,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#F8F8F8'
     },
-    menu: { flexDirection: 'row', alignItems: 'center' },
-    menuLabel: { marginLeft: 15, fontSize: 16, color: '#333', fontWeight: '500' }
+    menu: { 
+        flexDirection: 'row', 
+        alignItems: 'center' },
+    menuLabel: { 
+        marginLeft: 15, 
+        fontSize: 16, 
+        color: '#333', 
+        fontWeight: '500' }
 });

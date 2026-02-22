@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
   brandTextTop: {
     fontSize: 18,
     color: '#F9A825', // Cor amarela do logo
-    fontWeight: '300',
+    fontWeight: 300,
     lineHeight: 18,
   },
   brandTextBottom: {
     fontSize: 22,
     color: '#005D71', // Azul escuro
-    fontWeight: 'bold',
+    fontWeight: 600,
     lineHeight: 22,
     marginTop: -5,
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   petName: {
     marginHorizontal: 8,
-    fontWeight: '600',
+    fontWeight: 600,
     color: '#333',
   },
   badge: {

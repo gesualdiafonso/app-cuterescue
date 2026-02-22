@@ -32,4 +32,6 @@ export const Button = styled.TouchableOpacity`
 
 `
 
-export const ButtonText = styled.Text``
+export const ButtonText = styled.Text`
+    border-radius: 15px;
+`

@@ -46,7 +46,7 @@ export default function MapVet({ lat, lng, nombre, userLocation }){
                 <Marker coordinate={{ latitude: lat, longitude: lng}}>
                     <Callout>
                         <View style={{padding: 5}}>
-                            <Text style={{ fontWeight: "bold" }}>{nombre}</Text>
+                            <Text style={{ fontWeight: 600 }}>{nombre}</Text>
                         </View>
                     </Callout>
                 </Marker>

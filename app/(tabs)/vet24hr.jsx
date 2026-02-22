@@ -67,7 +67,7 @@ export default function Vet24hrs(){
     return(
         <ScrollView ref={scrollViewRef} style={{ width: "100%" }}>
             <Container>
-                <View style={{ width: "100%", height: "auto"}}>
+                <View style={{ width: "100%"}}>
                     <MapVet 
                         lat={selectedVet.lat}
                         lng={selectedVet.lng}
@@ -124,7 +124,7 @@ export default function Vet24hrs(){
 const styles = StyleSheet.create({
     header: {
         fontSize: 24,
-        fontWeight: "bold",
+        fontWeight: '600',
         color: "#22678b",
         textAlign: "left",
         marginVertical: 15,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: '600',
         color: "#22687b",
         marginBottom: 5,
     },
@@ -176,6 +176,6 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: "#22687b",
-        fontWeight: "600"
+        fontWeight: '600'
     }
 })

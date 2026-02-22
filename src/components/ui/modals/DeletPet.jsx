@@ -49,12 +49,48 @@ export default function DeletPet({ visible, onClose, pet }){
 }
 
 const styles = StyleSheet.create({
-    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center' },
-    card: { width: '80%', backgroundColor: '#fff', borderRadius: 15, padding: 25 },
-    title: { fontSize: 20, fontWeight: 'bold', marginBottom: 10, textAlign: 'center' },
-    desc: { fontSize: 16, color: '#666', marginBottom: 20, textAlign: 'center' },
-    row: { flexDirection: 'row', justifyContent: 'space-between' },
-    btnCancel: { flex: 1, padding: 12, alignItems: 'center' },
-    btnDelete: { flex: 1, backgroundColor: '#d9534f', padding: 12, borderRadius: 8, alignItems: 'center' },
-    btnText: { color: '#fff', fontWeight: 'bold' }
+    overlay: { 
+        flex: 1, 
+        backgroundColor: 'rgba(0,0,0,0.6)', 
+        justifyContent: 'center', 
+        alignItems: 'center' 
+    },
+    card: { 
+        width: '80%', 
+        backgroundColor: '#fff', 
+        borderRadius: 15, 
+        padding: 25 
+    },
+    title: { 
+        fontSize: 20, 
+        fontWeight: 600, 
+        marginBottom: 10, 
+        textAlign: 'center' 
+    },
+    desc: { 
+        fontSize: 16, 
+        color: '#666', 
+        marginBottom: 20, 
+        textAlign: 'center' 
+    },
+    row: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between' 
+    },
+    btnCancel: { 
+        flex: 1, 
+        padding: 12, 
+        alignItems: 'center' 
+    },
+    btnDelete: { 
+        flex: 1, 
+        backgroundColor: '#d9534f', 
+        padding: 12, 
+        borderRadius: 8, 
+        alignItems: 'center' 
+    },
+    btnText: { 
+        color: '#fff', 
+        fontWeight: 600 
+    }
 })

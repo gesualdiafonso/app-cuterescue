@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     pin: {
         width: 45,
         height: 45,
-        borderRadius: 22.2,
+        borderRadius: 22,
         backgroundColor: "#22687b",
         borderWidth: 2,
         borderColor: 'white',

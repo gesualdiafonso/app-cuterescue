@@ -49,7 +49,7 @@ export default function InformPet(){
     return(
         <ScrollView>
             <Container>
-                <TextH2 style={{ textAlign: 'end', color: "#22678d"}}>Perfil de Mascota</TextH2>
+                <TextH2 style={{ textAlign: 'end', color: "#22678d" }}>Perfil de Mascota</TextH2>
                 {/* Especie de filtrado por mascotas, una vez seleccionado va cambiar el componentente informPet */}
                 {/* Deve vir um tipo label de select para selecionar la mascota que deseas ver o un card que desplaze lateral */}
                 
@@ -58,33 +58,34 @@ export default function InformPet(){
                     <DropdownSelect pets={pets} />
                 </SelectContainer>
                 {selectedPet ? (
-                    <View>
-                        <View>
+                    <View style={{ width: '100%', padding: 0 }}>
+                        <View style={{ alignItems: 'center', marginVertical: 20, marginTop: 10}}>
                             <ImageRoundedAvatar src={selectedPet.foto_url} alt={selectedPet.nombre} style={{ height: 150, width: 150 }} />
-                            <TextH3>{selectedPet.nombre}</TextH3>
-                            <Paragraph style={{ color: 'black', fontWeight: 'bold' }}>
+                            <TextH3 style={{ marginTop: 20, fontSize: 20, fontWeight: 600 }}>{selectedPet.nombre}</TextH3>
+                            <Paragraph style={{ color: 'grey', fontWeight: 600 }}>
                                 {selectedPet.especie} • {countBirthday(selectedPet.fecha_nacimiento)}
                             </Paragraph>
                         </View>
                         {/* Componente de información pet */}
                         <LineBottom />
-                        <View>
+
+                        <View style={{ width: "100%", padding: 10 }}>
                             <DatosPet pet={selectedPet} />
                         </View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 20 }}>
+                        <View style={{ width: "100%", flexDirection: 'row', justifyContent: 'center', marginVertical: 20, paddingVertical: 10 }}>
                             <TouchableOpacity 
                                 onPress={() => setEditModal(true)}
-                                style={{ backgroundColor: '#22687b', padding: 10, borderRadius: 8 }}
+                                style={{ width: "50%", backgroundColor: '#22687b', padding: 10, borderRadius: 8, marginRight: 10 }}
                             >
-                                <Text style={{ color: '#fff' }}>Editar Información</Text>
+                                <Text style={{ color: '#fff', textAlign: "center" }}>Editar Información</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity 
                                 onPress={() => setDeleteModal(true)}
-                                style={{ borderColor: '#d9534f', borderWidth: 1, padding: 10, borderRadius: 8 }}
+                                style={{ width: "50%", borderColor: '#d9534f', borderWidth: 1, padding: 10, borderRadius: 8, marginLeft: 5 }}
                             >
-                                <Text style={{ color: '#d9534f' }}>Borrar Mascota</Text>
+                                <Text style={{ color: '#d9534f', textAlign: "center" }}>Borrar Mascota</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

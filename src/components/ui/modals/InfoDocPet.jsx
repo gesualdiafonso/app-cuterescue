@@ -5,6 +5,8 @@ import {
     Button, ButtonText, StyledInput 
 } from "../../../styles/modals.styles";
 
+import { Stronger, Paragraph } from "../../../styles/general.styles";
+
 export default function ModalInfoDoc({ isOpen, onClose, item, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editForm, setEditForm] = useState({});
@@ -52,7 +54,7 @@ export default function ModalInfoDoc({ isOpen, onClose, item, onUpdate, onDelete
         <Modal visible={isOpen} transparent animationType="slide">
             <ModalContainer>
                 <FormBox>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 15 }}>
+                    <Text style={{ fontWeight: 600, fontSize: 18, marginBottom: 15 }}>
                         {isEditing ? "Editar Documento" : "Información del Documento"}
                     </Text>
 
@@ -76,34 +78,34 @@ export default function ModalInfoDoc({ isOpen, onClose, item, onUpdate, onDelete
                         </>
                     ) : (
                         <View style={{ marginBottom: 20 }}>
-                            <Text><Text style={{fontWeight: 'bold'}}>Tipo:</Text> {item.tipo}</Text>
-                            <Text><Text style={{fontWeight: 'bold'}}>Nombre:</Text> {item.tipo_vacuna || item.producto || item.antiparasitario}</Text>
-                            <Text><Text style={{fontWeight: 'bold'}}>Aplicación:</Text> {item.fecha_aplicacion}</Text>
-                            <Text><Text style={{fontWeight: 'bold'}}>Vencimiento:</Text> {item.fecha_vencimiento}</Text>
-                            <Text><Text style={{fontWeight: 'bold'}}>Estado:</Text> {item.alerta}</Text>
+                            <Paragraph style={{ color: 'black' }}><Stronger style={{fontWeight: 600}}>Tipo:</Stronger> {item.tipo}</Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger style={{fontWeight: 600}}>Nombre:</Stronger> {item.tipo_vacuna || item.producto || item.antiparasitario}</Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger style={{fontWeight: 600}}>Aplicación:</Stronger> {item.fecha_aplicacion}</Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger style={{fontWeight: 600}}>Vencimiento:</Stronger> {item.fecha_vencimiento}</Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger style={{fontWeight: 600}}>Estado:</Stronger> {item.alerta}</Paragraph>
                         </View>
                     )}
 
                     <ButtonContainer>
                         {isEditing ? (
                             <>
-                                <Button onPress={() => setIsEditing(false)} style={{ backgroundColor: '#ccc' }}>
-                                    <ButtonText>Cancelar</ButtonText>
+                                <Button onPress={() => setIsEditing(false)} style={{ backgroundColor: '#F7612A', borderRadius: 10 }}>
+                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Cancelar</ButtonText>
                                 </Button>
-                                <Button onPress={handleSaveEdit}>
-                                    <ButtonText>Guardar</ButtonText>
+                                <Button onPress={handleSaveEdit} style={{ backgroundColor: '#22687B', borderRadius: 10}}>
+                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Guardar</ButtonText>
                                 </Button>
                             </>
                         ) : (
                             <>
-                                <Button onPress={handleStartEdit} style={{ backgroundColor: '#22687B' }}>
-                                    <ButtonText>Editar</ButtonText>
+                                <Button onPress={handleStartEdit} style={{ backgroundColor: '#22687B', borderRadius: 10}}>
+                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Editar</ButtonText>
                                 </Button>
-                                <Button onPress={confirmDelete} style={{ backgroundColor: '#FF4444' }}>
-                                    <ButtonText>Eliminar</ButtonText>
+                                <Button onPress={confirmDelete} style={{ backgroundColor: '#F7612A', borderRadius: 10 }}>
+                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Eliminar</ButtonText>
                                 </Button>
-                                <Button onPress={onClose} style={{ backgroundColor: '#eee' }}>
-                                    <ButtonText style={{ color: '#000' }}>Cerrar</ButtonText>
+                                <Button onPress={onClose} style={{ backgroundColor: 'white', borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
+                                    <ButtonText style={{ color: '#000', paddingHorizontal: 20, paddingVertical: 10 }}>Cerrar</ButtonText>
                                 </Button>
                             </>
                         )}

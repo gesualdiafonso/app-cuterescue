@@ -180,17 +180,62 @@ export default function EditInfoPet({ visible, onClose, pet }){
 }
 
 const styles = StyleSheet.create({
-    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 20 },
-    content: { backgroundColor: '#fff', borderRadius: 15, padding: 20, maxHeight: '80%' },
-    header: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
-    title: { fontSize: 18, fontWeight: 'bold', color: '#22687b' },
-    label: { marginTop: 10, fontWeight: '600' },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10, marginTop: 5 },
-    imageBox: { alignItems: 'center', marginBottom: 15 },
-    img: { width: 100, height: 100, borderRadius: 50 },
-    imageLabel: { color: '#22687b', marginTop: 5 },
-    saveButton: { backgroundColor: '#22687b', padding: 15, borderRadius: 10, marginTop: 20, alignItems: 'center' },
-    saveButtonText: { color: '#fff', fontWeight: 'bold' },
+    overlay: { 
+        flex: 1, 
+        backgroundColor: 'rgba(0,0,0,0.5)', 
+        justifyContent: 'center', 
+        padding: 20 
+    },
+    content: { 
+        backgroundColor: '#fff', 
+        borderRadius: 15, 
+        padding: 20, 
+        maxHeight: '80%' 
+    },
+    header: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        marginBottom: 15 
+    },
+    title: { 
+        fontSize: 18, 
+        fontWeight: 600, 
+        color: '#22687b' 
+    },
+    label: { 
+        marginTop: 10, 
+        fontWeight: 600 
+    },
+    input: { 
+        borderWidth: 1, 
+        borderColor: '#ddd', 
+        borderRadius: 8, 
+        padding: 10, 
+        marginTop: 5 
+    },
+    imageBox: { 
+        alignItems: 'center', 
+        marginBottom: 15 
+    },
+    img: { 
+        width: 100, height: 100, 
+        borderRadius: 50 
+    },
+    imageLabel: { 
+        color: '#22687b', 
+        marginTop: 5 
+    },
+    saveButton: { 
+        backgroundColor: '#22687b', 
+        padding: 15, 
+        borderRadius: 10, 
+        marginTop: 20, 
+        alignItems: 'center' 
+    },
+    saveButtonText: { 
+        color: '#fff', 
+        fontWeight: 600 
+    },
     dropdown: {
         height: 50,
         borderColor: "#ddd",

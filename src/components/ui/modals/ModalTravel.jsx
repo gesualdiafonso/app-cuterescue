@@ -46,12 +46,52 @@ export default function ModalTravel({ step, form, pets, setForm, handleFinish, h
 }
 
 const styles = StyleSheet.create({
-    btn: { backgroundColor: '#3498db', padding: 15, borderRadius: 10, alignItems: 'center' },
-    btnText: { color: 'white', fontWeight: 'bold' },
-    container: { flex: 1, padding: 20, justifyContent: 'center' },
-    formBox: { padding: 20 },
-    title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
-    input: { borderWidth: 1, borderColor: '#ddd', padding: 12, borderRadius: 8, marginBottom: 15 },
-    primaryBtn: { backgroundColor: '#22687b', padding: 15, borderRadius: 10, marginTop: 10 },
-    petItem: { fontSize: 14, color: '#666', marginBottom: 5 }
+    btn: { 
+        backgroundColor: '#3498db', 
+        padding: 15, 
+        borderRadius: 10, 
+        alignItems: 'center' 
+        
+    },
+    btnText: { 
+        color: 'white', 
+        fontWeight: 600 
+        
+    },
+    container: { 
+        flex: 1, 
+        padding: 20, 
+        justifyContent: 'center' 
+        
+    },
+    formBox: { 
+        padding: 20 
+    },
+    title: { 
+        fontSize: 24, 
+        fontWeight: 600, 
+        marginBottom: 20, 
+        textAlign: 'center' 
+        
+    },
+    input: { borderWidth: 1, 
+        borderColor: '#ddd', 
+        padding: 12, 
+        borderRadius: 8, 
+        marginBottom: 15 
+        
+    },
+    primaryBtn: { 
+        backgroundColor: '#22687b', 
+        padding: 15, 
+        borderRadius: 10, 
+        marginTop: 10 
+        
+    },
+    petItem: { 
+        fontSize: 14, 
+        color: '#666', 
+        marginBottom: 5 
+        
+    }
 });

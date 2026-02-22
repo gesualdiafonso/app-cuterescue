@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 22,
-        fontWeight: "bold",
+        fontWeight: 600,
         color: "#1a5262",
         marginBottom: 15,
         textAlign: "center",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "white",
-        fontWeight: "bold",
+        fontWeight: 600,
         fontSize: 16,
         textAlign: "center",
     },

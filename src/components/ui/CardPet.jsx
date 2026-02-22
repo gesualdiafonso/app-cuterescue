@@ -25,13 +25,13 @@ export default function CardPet({ pet }){
                 <CardImage>
                     <ImageCard src={pet?.foto_url} alt={pet?.nombre} />
                 </CardImage>
-                <CardBody style={{ alignItems: 'flex-self'}}>
-                    <TextH3>{pet.nombre}</TextH3>
-                    <Paragraph><Stronger>Especie: </Stronger>{pet.especie}</Paragraph>
-                    <Paragraph><Stronger>Color: </Stronger>{pet.color}</Paragraph>
-                    <Paragraph><Stronger>Sexo: </Stronger>{pet.sexo}</Paragraph>
+                <CardBody style={{ alignItems: 'flex-start'}}>
+                    <TextH3 style={{ color: 'white' }}>{pet.nombre}</TextH3>
+                    <Paragraph><Stronger style={{ color: 'white' }}>Especie: </Stronger>{pet.especie}</Paragraph>
+                    <Paragraph><Stronger style={{ color: 'white' }}>Color: </Stronger>{pet.color}</Paragraph>
+                    <Paragraph><Stronger style={{ color: 'white' }}>Sexo: </Stronger>{pet.sexo}</Paragraph>
                     
-                    <Paragraph style={{ marginTop: 5, color: '#22687b' }}>
+                    <Paragraph style={{ marginTop: 5, color: 'white', fontStyle: 'italic', fontWeight: 800 }}>
                         {pet.localizacion?.direccion || 'Sin ubicación'}
                     </Paragraph>
                 </CardBody>

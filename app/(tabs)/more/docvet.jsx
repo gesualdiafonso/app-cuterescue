@@ -73,7 +73,7 @@ export default function DocVet(){
                                         <CardHeader>
                                             <View style={{ flex: 1 }}>
                                                 <LabelText>
-                                                    <Stronger> 
+                                                    <Stronger style={{ color: 'white'}}> 
                                                         {item.tipo === 'vacuna' ? 'Vacuna: ' : 
                                                             item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
                                                     </Stronger> 
@@ -81,9 +81,9 @@ export default function DocVet(){
                                                         {item.tipo_vacuna || item.producto || item.antiparasitario || 'N/A'}
                                                     </Text>
                                                 </LabelText>
-                                                <LabelText><Stronger>Fecha de aplicación:</Stronger></LabelText>
+                                                <LabelText><Stronger style={{ color: 'white'}}>Fecha de aplicación:</Stronger></LabelText>
                                                 <ValueText>{item.fecha_aplicacion}</ValueText>
-                                                <LabelText><Stronger>Fecha de vencimiento:</Stronger></LabelText>
+                                                <LabelText><Stronger style={{ color: 'white'}}>Fecha de vencimiento:</Stronger></LabelText>
                                                 <ValueText>{item.fecha_vencimiento}</ValueText>
                                             </View>
 
@@ -104,8 +104,8 @@ export default function DocVet(){
                             <Text>No hay registro de vacunación de mascotas agregadas.</Text>
                         )}
                         <AddCard style={{ width: "100%"}} onPress={() => setModalOpen(true)}>
-                            <Text>+</Text>
-                            <Text>Agregar vacunas</Text>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>+</Text>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>Agregar vacunas</Text>
                         </AddCard>
                     </>
                 ) : (

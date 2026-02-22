@@ -128,10 +128,10 @@ export default function AddCard(){
     return(
         <ScrollView>
             <TouchableOpacity onPress={handleOpen}>
-                <CardAdd>
+                <CardAdd  style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: "rgba(61, 142, 136, 0.45)" }}>
                     <CardBody>
-                        <Text>+</Text>
-                        <Text>Agregar mas mascotas</Text>
+                        <Text style={styles.cardText}>+</Text>
+                        <Text style={styles.cardText}>Agregar mas mascotas</Text>
                     </CardBody>
                 </CardAdd>
             </TouchableOpacity>
@@ -220,7 +220,7 @@ export default function AddCard(){
                                             onPress={() => setShowPicker(false)}
                                             style={{ alignSelf: 'center', padding: 10 }}
                                         >
-                                            <Text style={{ color: '#22487b', fontWeight: 'bold' }}>Confirmar Fecha</Text>
+                                            <Text style={{ color: '#22487b', fontWeight: 600 }}>Confirmar Fecha</Text>
                                         </TouchableOpacity>
                                     )}
                                 </View>
@@ -288,6 +288,12 @@ export default function AddCard(){
 }
 
 const styles = StyleSheet.create({
+    cardText:{
+        fontSize: 16,
+        fontWeight: 600,
+        color: "white",
+        textAlign: "center"
+    },
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
@@ -307,7 +313,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 22,
-        fontWeight: 'bold',
+        fontWeight: 600,
         color: '#22687b'
     },
     closeButton: {
@@ -316,17 +322,19 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        fontWeight: '600',
+        fontWeight: 600,
         color: '#444',
         marginBottom: 5,
-        marginTop: 10
+        marginTop: 15
     },
     input: {
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 10,
         padding: 12,
-        fontSize: 16
+        fontSize: 16,
+        marginTop: 5,
+        marginBottom: 10
     },
     row: {
         flexDirection: 'row',
@@ -342,7 +350,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderWidth: 1,
         borderColor: '#ddd',
-        borderStyle: 'dashed'
+        borderStyle: 'dashed',
+        marginBottom: 15
     },
     previewImage: {
         width: '100%',
@@ -358,7 +367,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 12,
         backgroundColor: "#fff",
-        marginBottom: 10,
+        marginBottom: 15,
+        marginTop: 10
     },
     saveButton: {
         backgroundColor: '#22687b',
@@ -374,6 +384,6 @@ const styles = StyleSheet.create({
     saveButtonText: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 600
     }
 })

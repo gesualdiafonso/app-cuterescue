@@ -58,7 +58,7 @@ export default function Tracker(){
                         <View>
                             <Text style={styles.petName}>{selectedPet?.nombre || "Seleccione una mascota!"}</Text>
                             <Text style={styles.locationText}>
-                            <Text style={{ fontWeight: 'bold' }}>Ubicación: </Text>
+                            <Text style={{ fontWeight: '600' }}>Ubicación: </Text>
                                 {petLocation 
                                     ? `${petLocation.direccion}, ${petLocation.provincia}` 
                                     : "Buscando ubicación..."}
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     petName: { 
         color: 'white', 
         fontSize: 22, 
-        fontWeight: 'bold' 
+        fontWeight: '600' 
     },
     locationText: { 
         color: 'white', 
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         width: 50, 
         height: 50, 
         borderRadius: 25, 
-        borderWhite: 2, 
+        borderWidth: 2, 
         borderColor: 'white' 
     },
     buttonRow: { 

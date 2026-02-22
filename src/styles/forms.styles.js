@@ -43,7 +43,7 @@ export const FormTitle = styled.Text`
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
-    font-weight: bold;
+    font-weight: 600;
     opacity: 1;
     color: #f5f5f5;
 `;

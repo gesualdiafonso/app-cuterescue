@@ -6,7 +6,7 @@ export const MapContainer = styled.View`
     height: 250px;
     border-radius: 30px;
     overflow: hidden;
-    margin-vertical: 15px;
+    //margin-vertical: 15px;
     border-width: 1px;
 `;
 

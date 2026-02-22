@@ -53,7 +53,6 @@ export default function Dashboard() {
         <ScrollView style={{ backgroundColor: "#fff" }} contentContainerStyle={{ flexGrow: 1 }}>
              <View style={styles.layoutContainer}>
                 <Container>
-                    <TextH1>Página de Inicio</TextH1>
                     <View style={styles.layoutImage}>
                         <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + profile?.apellido} />
                     </View>
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        fontWeight: "bold",
+        fontWeight: 600,
         padding: 10
     },
     layoutImage: {
@@ -109,6 +108,7 @@ const styles = StyleSheet.create({
     buttonLayout: {
         flexDirection: "row",
         justifyContent: "space-around",
-        width: "100%"
+        width: "100%",
+        marginTop: 10
     }
 });

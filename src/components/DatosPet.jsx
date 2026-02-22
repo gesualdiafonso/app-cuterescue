@@ -7,7 +7,7 @@ export default function DatosPet ({ pet }) {
 
     return(
         <View>
-            <Text>Informaciones de la mascota</Text>
+            <Text style={{ fontSize: 18, fontWeight: 600, marginBottom: 20 }}>Informaciones de la mascota</Text>
             <Paragraph style={{ color: 'black' }}><Stronger>Nombre: </Stronger>{pet.nombre}</Paragraph>
             <Paragraph style={{ color: 'black' }}><Stronger>Raza: </Stronger>{pet.raza}</Paragraph>
             <Paragraph style={{ color: 'black' }}><Stronger>Especie: </Stronger>{pet.especie}</Paragraph>

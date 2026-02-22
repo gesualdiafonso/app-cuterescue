@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     title: { 
         fontSize: 20, 
-        fontWeight: 'bold', 
+        fontWeight: 600, 
         color: '#e74c3c', 
         marginBottom: 10
      },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     btnText: { 
         color: 'white', 
-        fontWeight: 'bold', 
+        fontWeight: 600, 
         textAlign: 'center' 
     }
 });

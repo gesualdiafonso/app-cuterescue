@@ -133,15 +133,66 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
 }
 
 const styles = StyleSheet.create({
-    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' },
-    modalContainer: { width: '90%', maxHeight: '85%', backgroundColor: '#fff', borderRadius: 20, padding: 20 },
-    title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
-    label: { fontWeight: '600', marginTop: 10, marginBottom: 5 },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10, marginBottom: 10 },
-    separator: { marginVertical: 15, borderBottomWidth: 1, borderBottomColor: '#eee', paddingBottom: 5 },
-    imageBtn: { alignItems: 'center', padding: 15, backgroundColor: '#f0f0f0', borderRadius: 10, marginBottom: 15 },
-    buttonContainer: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 30 },
-    btn: { paddingVertical: 12, paddingHorizontal: 30, borderRadius: 10, minWidth: 120, alignItems: 'center' },
-    btnCancel: { backgroundColor: '#ff4444' },
-    btnSave: { backgroundColor: '#00C851' }
+    overlay: { 
+        flex: 1, 
+        backgroundColor: 'rgba(0,0,0,0.5)', 
+        justifyContent: 'center', 
+        alignItems: 'center' 
+    },
+    modalContainer: { 
+        width: '90%', 
+        maxHeight: '85%', 
+        backgroundColor: '#fff', 
+        borderRadius: 20, 
+        padding: 20 
+    },
+    title: { 
+        fontSize: 22, 
+        fontWeight: 600, 
+        marginBottom: 20, 
+        textAlign: 'center' 
+    },
+    label: { 
+        fontWeight: 600, 
+        marginTop: 10, 
+        marginBottom: 5 
+    },
+    input: { 
+        borderWidth: 1, 
+        borderColor: '#ddd', 
+        borderRadius: 8, 
+        padding: 10, 
+        marginBottom: 10 
+    },
+    separator: { 
+        marginVertical: 15, 
+        borderBottomWidth: 1, 
+        borderBottomColor: '#eee', 
+        paddingBottom: 5 
+    },
+    imageBtn: { 
+        alignItems: 'center', 
+        padding: 15, 
+        backgroundColor: '#f0f0f0', 
+        borderRadius: 10, 
+        marginBottom: 15 
+    },
+    buttonContainer: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-around', 
+        marginTop: 30 
+    },
+    btn: { 
+        paddingVertical: 12, 
+        paddingHorizontal: 30, 
+        borderRadius: 10, 
+        minWidth: 120, 
+        alignItems: 'center' 
+    },
+    btnCancel: { 
+        backgroundColor: '#ff4444' 
+    },
+    btnSave: { 
+        backgroundColor: '#00C851' 
+    }
 })

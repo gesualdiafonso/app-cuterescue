@@ -17,7 +17,7 @@ export const Logo = styled.Image`
 export const ImageRoundedAvatar = styled.Image`
     width: 100%;
     height: 100%;
-    border-radius: 100%;
+    border-radius: 999px;
     border: 1px solid #3D8E88;
     margin: 0 auto;
 `;
@@ -32,36 +32,42 @@ export const LinkText = styled.Text``;
 
 export const TextH1 = styled.Text`
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
 `;
 
 export const TextH2 = styled.Text`
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
     padding: 10px;
 `;
 
 export const LineBottom = styled.View`
     width: 100%;
-    height: 2px;
-    background-color: gray;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.15);
     margin: 10px;
 `;
 
 export const TextH3 = styled.Text`
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
 `;
 
 export const Paragraph = styled.Text`
     font-size: 14px;
-    font-weight: light;
+    font-weight: 300;
     color: white;
+    margin-bottom: 5px;
 `;
 
-export const Stronger = styled.Text``;
+export const Stronger = styled.Text`
+    font-weight: 600;
+    color: #22687B;
+    margin: 0 10px;
+    padding: 0 10px;
+`;
 
 export const Card = styled.View`
     background-color: #3D8E88;
@@ -108,11 +114,11 @@ export const CardAdd = styled.View`
 `;
 
 export const SelectContainer = styled.View`
-    width: 90%;
+    width: 100%;
     height: 55px;
     background-color: #f0f0f0;
     border-radius: 12px;
-    border-width: 1px;
+    //border-width: 1px;
     border-color: #22678d;
     margin: 10px auto;
     justify-content: center;
@@ -121,7 +127,7 @@ export const SelectContainer = styled.View`
 export const StyledPickerLabel = styled.Text`
     font-size: 14px;
     color: #22678d;
-    font-weight: bold;
+    font-weight: 600;
     margin-left: 20px;
     margin-top: 10px;
 `;
@@ -150,13 +156,13 @@ export const LabelText = styled.Text`
     width: 100%;
     color: #ffff;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
 `;
 
 export const ValueText = styled.Text`
     color: #d1d5db;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 600;
 `;
 
 export const Badge = styled.View`
@@ -168,7 +174,7 @@ export const Badge = styled.View`
 export const BadgeText = styled.Text`
     color: #ffffff;
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 600;
 `;
 
 export const InfoButton = styled.TouchableOpacity`

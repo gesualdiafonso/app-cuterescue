@@ -64,7 +64,7 @@ export default function Tracker(){
                                     : "Buscando ubicación..."}
                             </Text>
                         </View>
-                        <Image src={{ uri: selectedPet?.foto_url }} style={styles.miniAvatar} />
+                        <Image source={{ uri: selectedPet?.foto_url }} style={styles.miniAvatar} />
                     </View>
 
                     <View style={styles.buttonRow}>

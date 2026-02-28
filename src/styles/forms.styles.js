@@ -49,7 +49,7 @@ export const FormTitle = styled.Text`
 `;
 
 export const AreaInput = styled.View`
-    width: 90%;
+    width: 100%;
     margin-bottom: 15px;
 `;
 
@@ -69,7 +69,7 @@ export const Label = styled.Text`
 `;
 
 export const Link = styled.TouchableOpacity`
-    width: 90%;
+    width: 100%;
     height: 45px;
     border-radius: 8px;
     background-color: #f7a82a;
@@ -84,7 +84,7 @@ export const LinkText = styled.Text`
 `;
 
 export const Button = styled.TouchableOpacity`
-    width: 90%;
+    width: 100%;
     height: 45px;
     border-radius: 8px;
     background-color: #22687b;

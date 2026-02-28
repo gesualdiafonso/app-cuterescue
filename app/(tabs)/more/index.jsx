@@ -29,7 +29,7 @@ export default function More(){
     
     const menuItems = [
         { id: 'profile', label: 'Mi Perfil', icon: 'person-outline', navigateTo: '/more/profile' },
-        { id: 'plan', label: 'Plan de Rescate', icon: 'document-text-outline', navigateTo: '/more/viewplan' },
+        { id: 'plan', label: 'Membresias', icon: 'document-text-outline', navigateTo: '/more/viewplan' },
         { id: 'report', label: 'Informe de Mascote', icon: 'paw-outline', navigateTo: '/more/informpet' },
         { id: 'documentation', label: 'Documentación', icon: 'folder-open-outline', navigateTo: '/more/docvet' },
         { id: 'events', label: 'Eventos', icon: 'calendar-outline', navigateTo: '/more/events' },
@@ -88,6 +88,16 @@ export default function More(){
                         <Ionicons name="chevron-forward" size={18} color="#CCC" />
                     </TouchableOpacity>
                 ))}
+
+                <TouchableOpacity
+                    style={[styles.menuItems, { borderBottomWidth: 0 }]} // Remove borda do último item
+                    onPress={handleLogout}
+                >
+                    <View style={styles.menu}>
+                        <Ionicons name="log-out-outline" size={24} color="#E74C3C" />
+                        <Text style={[styles.menuLabel, { color: '#E74C3C' }]}>Cerrar Sesión</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )

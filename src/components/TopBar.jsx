@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
-    marginBottom: 10,
+    marginBottom: 0,
   },
   brandContainer: {
     flexDirection: 'row',

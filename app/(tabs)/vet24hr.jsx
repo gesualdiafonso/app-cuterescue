@@ -29,28 +29,41 @@ export default function Vet24hrs(){
     useEffect(() => {
         const loadVetsAndLocation = async () => {
             try {
-                // pegar el usuario logado por pirmero
                 const user = await authService.getCurrentUser();
                 if (!user) throw new Error("Usuario no logado");
 
                 const allVets = getVeterinarias();
 
-                // 1. Intentamos obtener la ubicación del Supbabase o GPS
                 const loc = await locationService.getUserLocation(user.id);
+
+                if (!loc || !loc.lat || !loc.lng) {
+                    throw new Error("Ubicación inválida");
+                }
+
                 setUserLocation(loc);
 
-                // 2. calculamos la distancia al ordernar
-                const vetsWithDistance = allVets.map(vet => ({
-                    ...vet,
-                    distance: calculateDistance(loc.lat, loc.lng, vet.lat, vet.lng)
-                })).sort((a, b) => a.distance - b.distance);
+                const vetsWithDistance = allVets
+                    .map(vet => {
+                        const distance = calculateDistance(
+                            Number(loc.lat),
+                            Number(loc.lng),
+                            Number(vet.lat),
+                            Number(vet.lng)
+                        );
+
+                        return {
+                            ...vet,
+                            distance: isNaN(distance) ? 0 : distance
+                        };
+                    })
+                    .sort((a, b) => a.distance - b.distance);
 
                 setSortedVets(vetsWithDistance);
-                setSelectedVet(vetsWithDistance[0]);
+                setSelectedVet(vetsWithDistance[0] || {});
             } catch (error) {
                 console.error("Error al cargar veterinarias y ubicación:", error);
             }
-        }
+        };
 
         loadVetsAndLocation();
     }, []);

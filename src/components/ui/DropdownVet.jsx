@@ -3,14 +3,16 @@ import { Dropdown } from "react-native-element-dropdown";
 import { StyleSheet, View } from "react-native";
 
 
-export default function DropdownVet({ vets, onSelect, selectedValue }) {
+export default function DropdownVet({ vets = [], onSelect, selectedValue }) {
 
     const data = vets.map(v => ({
-        label: `${v.nombre} (${v.distance.toFixed(1)} km)`,
+        label: `${v.nombre} (${typeof v.distance === "number" 
+            ? v.distance.toFixed(1) 
+            : "0.0"} km)`,
         value: v.id,
     }));
 
-    return(
+    return (
         <View style={styles.container}>
             <Dropdown 
                 style={styles.dropdown}
@@ -20,16 +22,16 @@ export default function DropdownVet({ vets, onSelect, selectedValue }) {
                 value={selectedValue}
                 onChange={item => {
                     const vet = vets.find(v => v.id === item.value);
-                    onSelect(vet);
+                    if (vet) onSelect(vet);
                 }}
             />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        peddingVertical: 10,
+        paddingVertical: 10,
         width: '100%',
     },
     dropdown: {

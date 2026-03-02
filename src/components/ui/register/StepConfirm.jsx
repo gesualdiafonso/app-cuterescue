@@ -33,6 +33,9 @@ export default function StepConfirm({ data, onConfirm, onBack }){
             <InfoBox>
                 <InfoText><Label>Nome:</Label> {data.nombre} {data.apellido}</InfoText>
                 <InfoText><Label>Email:</Label> {data.email}</InfoText>
+                <InfoText><Label>Teléfono:</Label> {data.telefono}</InfoText>
+                <InfoText><Label>Nacimiento:</Label> {data.fechaNacimiento}</InfoText>
+                <InfoText><Label>Género:</Label> {data.genero}</InfoText>
                 <InfoText><Label>Documento:</Label> ({data.tipoDocumento}) {data.documento}</InfoText>
                 <InfoText><Label>Dirección:</Label> {data.direccion}</InfoText>
                 <InfoText><Label>Provincia:</Label> {data.provincia}</InfoText>

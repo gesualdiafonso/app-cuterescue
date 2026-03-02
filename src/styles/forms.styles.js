@@ -29,11 +29,12 @@ export const FormArea = styled.View`
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 30px;
 `;
 
 export const ContainerScroll = styled.ScrollView`
     flex: 1;
-    padding: 0 30px;
+    padding: 30px 30px;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;

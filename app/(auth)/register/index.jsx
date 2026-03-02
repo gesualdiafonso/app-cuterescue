@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 
 import { useRouter } from "expo-router";
 
@@ -19,9 +19,17 @@ export default function Register(){
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         email: '', password: '', confirmPassword: '',
-        nombre: '', apellido: '', tipoDocumento: 'DNI', documento: '',
+        nombre: '', apellido: '', telefono: '', fechaNacimiento: '', 
+        genero: '', tipoDocumento: 'DNI', documento: '',
         direccion: '', provincia: '', codigoPostal: ''
     });
+
+    const formatToInsert = (dateStr) => {
+        if (!dateStr) return null;
+        // Converte "23/04/1994" -> ["23", "04", "1994"] -> "1994-04-23"
+        const [day, month, year] = dateStr.split('/');
+        return `${year}-${month}-${day}`;
+    };
 
     const handleNext = (stepData) => {
         setFormData({...formData, ...stepData});
@@ -35,10 +43,16 @@ export default function Register(){
 
             const { confirmPassword, password, ...profileData } = formData;
             // Chamada ao seu serviço de Supabase
-            await authService.signUp(formData.email, formData.password, profileData);
+            const dataParaEnvfio ={
+                ...profileData,
+                fechaNacimiento: formatToInsert(formData.fechaNacimiento)
+            }
+            await authService.signUp(formData.email, formData.password, dataParaEnvfio);
+            Alert.alert("Écito", "¡Cuenta ha sido creada con éxito!")
             router.replace('/(auth)/login/');
         } catch (error) {
-            console.error(error);
+            console.error("Erro no registro:", error);
+            alert("Error: " + error.message);
         }
     }
 

@@ -11,7 +11,7 @@ export default function useDocumentation() {
     const [docs, setDocs] = useState({
         tipo_vacuna: [],
         presentacion: [],
-        antiparasitarios: [],
+        desparasitacion: [],
         alerta: [],
     });
 
@@ -26,7 +26,7 @@ export default function useDocumentation() {
             setDocs({
                 vacunas: data.filter(d => d.tipo === "vacuna"),
                 presentacion: data.filter(d => d.tipo === "pipeta"),
-                antiparasitarios: data.filter(d => d.tipo === "antiparasitario")
+                desparasitacion: data.filter(d => d.tipo === "desparasitacion")
             });
 
             // disparamos la notificaciones en background

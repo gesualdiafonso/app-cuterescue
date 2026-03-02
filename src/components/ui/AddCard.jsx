@@ -10,6 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Platform, Keyboard } from "react-native";
+import usePlanLimits from "../../hooks/usePlanLimits";
 
 export default function AddCard(){
     const [ modalVisible, setModalVisible ] = useState(false);
@@ -17,6 +18,9 @@ export default function AddCard(){
     const [ image, setImage] = useState(null);
     const [showPicker, setShowPicker] = useState(false);
     const [date, setDate] = useState(new Date());
+
+    // 1. Instancia de hook de limits
+    const { canAddPet, limits, loading: loadingLimits } = usePlanLimits();
 
     // llamamos el hook
     const { addPet } = usePetManager();
@@ -84,13 +88,34 @@ export default function AddCard(){
         setForm({ ...form, fecha_nacimiento: fDate });
     };
 
-    const handleOpen = () => setModalVisible(true);
+    const handleOpen = () => {
+        // 2. validamos si puede abrir modal
+        if (!canAddPet) {
+            Alert.alert(
+                "Límite alcanzado",
+                `Tu plan actual permite un máximo de ${limits?.max_mascotas} mascotas.`,
+                "Mejor tu plan para agregar más."
+            );
+            return;
+        }
+        setModalVisible(true);
+    };
 
     const handleClose = () => {
         if (!isSubmitting) setModalVisible(false);
     };
 
     const handleSave = async () => {
+
+        // Validamos si externamente a pasado y por seguridad estas con limites 
+        if (!canAddPet){
+            Alert.alert(
+                "Error",
+                "Has alcanzado el límite de mascotas de tu plan.",
+                "Mejore su plan para que puedas agregar mas mascotas."
+            )
+        }
+
         // Validación simples
         if (!form.nombre || !form.especie){
             Alert.alert("Campos son obrigatorios", "Por favor, preenchelo el nombre y/o la espécie")
@@ -127,11 +152,24 @@ export default function AddCard(){
 
     return(
         <ScrollView>
-            <TouchableOpacity onPress={handleOpen}>
-                <CardAdd  style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: "rgba(61, 142, 136, 0.45)" }}>
+            <TouchableOpacity 
+                onPress={handleOpen}
+                disabled={loadingLimits}
+                style={{ opacity: loadingLimits ? 0.5 : 1 }}    
+            >
+                <CardAdd  
+                    style={{ 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        backgroundColor:  canAddPet ? "rgba(61, 142, 136, 0.45)" : "rgba(61, 142, 136, 0.30)"
+                }}>
                     <CardBody>
-                        <Text style={styles.cardText}>+</Text>
-                        <Text style={styles.cardText}>Agregar mas mascotas</Text>
+                        <Text style={[styles.cardText, !canAddPet && { color: '#666' }]}>
+                            {canAddPet ? "+" : "🔒"}
+                        </Text>
+                        <Text style={[styles.cardText, !canAddPet && { color: '#666' }]}>
+                            {canAddPet ? "Agregar más mascotas" : "Límite de plan alcanzado"}
+                        </Text>
                     </CardBody>
                 </CardAdd>
             </TouchableOpacity>

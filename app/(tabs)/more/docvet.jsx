@@ -1,6 +1,6 @@
 // Pagina de Documentación veterinarios
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView } from 'react-native';
 import { View, Text } from "react-native";
 import { 
     Container, Stronger, TextH2, 
@@ -14,12 +14,15 @@ import DropdownSelect from '../../../src/components/ui/DropdownSelect';
 import usePetManager from '../../../src/hooks/usePetManager';
 import * as Notifications from 'expo-notifications';
 import InfoDocPet from '../../../src/components/ui/modals/InfoDocPet';
+import usePlanLimits from '../../../src/hooks/usePlanLimits';
 
 export default function DocVet(){
 
     const { pets, refreshPets, setSelectedPet } = usePetManager();
     const { docs, loading, saveDoc, removeDoc, selectedPet } = useDocumentation();
     const [ modalOpen, setModalOpen ] = React.useState(false);
+
+    const { canAddDocument, limits, loading: loadingLimits } = usePlanLimits();
 
     const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [selectedDoc, setSelectedDoc] = useState(null);
@@ -49,10 +52,28 @@ export default function DocVet(){
     }, [pets, selectedPet]);
 
     const allDocs = [
-    ...(docs?.vacunas || []), 
-    ...(docs?.presentacion || []), 
-    ...(docs?.antiparasitarios || [])
-];
+        ...(docs?.vacunas || []), 
+        ...(docs?.presentacion || []), 
+        ...(docs?.desparasitacion || [])
+    ];
+
+    const handleOpenAddModal = () => {
+        if (!selectedPet) {
+            Alert.alert("Atención", "Seleccione una mascota primero")
+            return;
+        }
+
+        // Verficiamos si el total de documentación actuales ultrapasa su limite 
+        if (!canAddDocument(allDocs.length)) {
+            Alert.alert(
+                "Límite de documentos",
+                `Tu plan actual permite un máximo de ${limits?.slots_documentacion} documentos por mascota. ¡Mejora tu plan para agregar más!`
+            );
+            return;
+        }
+
+        setModalOpen(true);
+    }
 
     return(
         <ScrollView>
@@ -62,7 +83,7 @@ export default function DocVet(){
 
                 <DropdownSelect pets={pets} />
 
-                {loading ? (
+                {loading || loadingLimits ? (
                     <ActivityIndicator size="large" color="#22687B" />
                 ) : selectedPet ? (
                     // Verificamos si hay documentos
@@ -78,7 +99,7 @@ export default function DocVet(){
                                                             item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
                                                     </Stronger> 
                                                     <Text>
-                                                        {item.tipo_vacuna || item.producto || item.antiparasitario || 'N/A'}
+                                                        {item.tipo_vacuna || item.producto || item.desparasitacion || 'N/A'}
                                                     </Text>
                                                 </LabelText>
                                                 <LabelText><Stronger style={{ color: 'white'}}>Fecha de aplicación:</Stronger></LabelText>
@@ -103,9 +124,20 @@ export default function DocVet(){
                             ) : (
                             <Text>No hay registro de vacunación de mascotas agregadas.</Text>
                         )}
-                        <AddCard style={{ width: "100%"}} onPress={() => setModalOpen(true)}>
-                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>+</Text>
-                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>Agregar vacunas</Text>
+                        <AddCard 
+                            style={{ 
+                                width: "100%",
+                                backgroundColor: canAddDocument(allDocs.length) ? "rgba(251, 198, 143, 1)" : "rgba(251, 198, 143, 0.5)"
+                            }} 
+                            onPress={handleOpenAddModal}
+                            
+                        >
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>
+                                {canAddDocument(allDocs.length) ? "+" : "🔒"}
+                            </Text>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: 300 }}>
+                                {canAddDocument(allDocs.length) ? "Agregar documentación" : "Límite alcanzado"}
+                            </Text>
                         </AddCard>
                     </>
                 ) : (

@@ -62,7 +62,7 @@ export const documentationService = {
 
             // Se faltam 7, 1 o 0 días, agendamos una notificación local
             if ([7, 1, 0].includes(diffDays)) {
-                const title = item.tipo_vacuna || item.producto || item.antiparasitario;
+                const title = item.tipo_vacuna || item.producto || item.desparasitario;
 
                 let mensaje = "";
                 if (diffDays === 0) mensaje = `¡Hoy es el día de vencimiento de ${title} de su mascota: ${mascota.nombre}`;

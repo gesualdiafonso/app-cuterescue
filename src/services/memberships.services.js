@@ -11,3 +11,20 @@ export async function getMemberships() {
 
     return data ?? [];
 }
+
+export const membershipService = {
+    async getPlanDetails(planCode) {
+        const { data, error } = await supabase
+            .from("membresias")
+            .select("max_mascotas, rastreo_km, slots_documentacion, titulo")
+            .eq("codigo", planCode.toLowerCase())
+            .single();
+            
+        if (error) {
+            console.error("Error al buscar limites de las membresias")
+            return null
+        }
+
+        return data;
+    }
+}

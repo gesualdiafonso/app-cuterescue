@@ -14,11 +14,18 @@ import { Button, TouchableOpacity, StyleSheet } from "react-native"
 
 import * as ImagePicker from 'expo-image-picker';
 
+import usePetManager from "../../../src/hooks/usePetManager"
+import { useRouter } from "expo-router"
+import usePlanLimits from "../../../src/hooks/usePlanLimits"
+
 export default function MiPerfil(){
     const { user } = useAuth();
     const [ profile, setProfile ] = useState(null);
+    const { pets } = usePetManager();
+    const { planNameFormatted } = usePlanLimits();
     const [ loading, setLoading ] = useState(null);
-    const [isModalVisible, setModalVisible] = useState(false)
+    const [isModalVisible, setModalVisible] = useState(false);
+    const router = useRouter();
 
 
     const loadData = async () => {
@@ -97,10 +104,9 @@ export default function MiPerfil(){
                         <Paragraph style={{ color: 'black' }}><Stronger>Genero: </Stronger> <Text>{profile?.genero}</Text></Paragraph>
                         <Paragraph style={{ color: 'black' }}><Stronger>Email: </Stronger> <Text>{profile?.email}</Text></Paragraph>
                         <Paragraph style={{ color: 'black' }}><Stronger>Telefono: </Stronger> <Text>{profile?.telefono}</Text></Paragraph>
-                            <Paragraph style={{ color: 'black' }}><Stronger>Documento: </Stronger> <Text>{profile?.tipoDocumento + ": " + profile?.documento}</Text></Paragraph>
-                            <Paragraph style={{ color: 'black' }}><Stronger>Plan: </Stronger> <Text>valor del plan contractado</Text></Paragraph>
-                        <Paragraph style={{ color: 'black' }}><Stronger>Numero de mascotas activas: </Stronger> <Text>mascotas por id user</Text></Paragraph>
-                        <Paragraph style={{ color: 'black' }}><Stronger>Tags Activas: </Stronger> <Text>null</Text></Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger>Documento {profile?.tipoDocumento}: </Stronger> <Text>{profile?.documento}</Text></Paragraph>
+                            <Paragraph style={{ color: 'black' }}><Stronger>Plan: </Stronger> <Text>{planNameFormatted}</Text></Paragraph>
+                        <Paragraph style={{ color: 'black' }}><Stronger>Numero de mascotas activas: </Stronger> <Text>{pets ? pets.length : 0}</Text></Paragraph>
                         <Paragraph style={{ color: 'black' }}><Stronger>Ubicación: </Stronger><Text>{profile?.direccion + ", " + profile?.provincia}</Text></Paragraph>
                     </View>
                 </View>
@@ -115,13 +121,14 @@ export default function MiPerfil(){
 
                     <View style={{ width: "100%", margin: 10, flexDirection: "row", justifyContent: "center", flex: 1, alignItems: "center", padding: 10}}>
                         <TouchableOpacity 
-                            onPress={() => setModalVisible(true)}
+                            onPress={() => router.push("/(tabs)/more/informpet")}
                             style={[styles.buttonEdit, { width: "50%", marginRight: 10, backgroundColor: "#22687B", borderColor: "#22687B" }]}
                         >
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 600, textAlign: "center" }}>Vermascotas</Text>
+                            <Text style={{ color: 'white', fontSize: 18, fontWeight: 600, textAlign: "center" }}>Ver mascotas</Text>
                         </TouchableOpacity>
+
                         <TouchableOpacity 
-                            onPress={() => setModalVisible(true)}
+                            onPress={() => router.push("/(tabs)/more/viewplan")}
                             style={[styles.buttonEdit, { width: "50%", marginLeft: 5, marginRight: 15, backgroundColor: "#FF8C09", borderColor: "#FF8C09" }]}
                         >
                             <Text style={{ color: 'white', fontSize: 18, fontWeight: 600, textAlign: "center" }}>Ver Plan</Text>

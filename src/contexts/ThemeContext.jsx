@@ -22,6 +22,9 @@ export const ThemeProvider = ({ children }) => {
     const activateEmergency = (pet, userLocation) => {
         setStatus("emergency");
 
+        // Se já houver uma simulacao rodando para ela
+        if (stopSimFunc) stopSimFunc();
+
         // incializar la simulación 
         const stop = startRealTimeSimulation(pet, userLocation, "emergency", (newData) => {
             console.log("Pet moviéndose: ", newData.direccion);

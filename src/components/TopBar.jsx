@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/drawer';
 
-const TopBar = ({ selectedPet, isLoading }) => {
+export default function TopBar ({ selectedPet, isLoading }) {
 
   const navigation = useNavigation();
 
@@ -122,7 +122,5 @@ const styles = StyleSheet.create({
   }
 
 });
-
-export default TopBar;
 
 // En este componente se muestra la barra superior de la aplicación, con el nombre de la mascota actual o el nombre de la aplicación si no hay una mascota seleccionada. Se utiliza un icono de pata para darle un toque visual relacionado con las mascotas.

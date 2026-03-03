@@ -1,10 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, View, Image, Platform } from "react-native";
+import { useSavedData } from "../contexts/SaveDataContext";
 
 export default function Maps({ location, petPhoto }) {
 
     const mapRef = useRef(null);
+
+    const { userLocation } = useSavedData();
 
     const region = {
         latitude: location?.lat ?? -34.5711,
@@ -15,7 +18,18 @@ export default function Maps({ location, petPhoto }) {
 
     useEffect(() => {
         if (location && mapRef.current) {
-            mapRef.current.animateToRegion(region, 800);
+            // Anima para mostrar ambos (Pet e Usuário) se ambos existirem
+            const coordinates = [
+                { latitude: location.lat, longitude: location.lng }
+            ];
+            if (userLocation) {
+                coordinates.push({ latitude: userLocation.lat, longitude: userLocation.lng });
+            }
+
+            mapRef.current.fitToCoordinates(coordinates, {
+                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+                animated: true,
+            });
         }
     }, [location]);
 

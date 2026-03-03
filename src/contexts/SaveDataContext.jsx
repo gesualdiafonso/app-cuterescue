@@ -5,6 +5,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import AsyncStorage from "expo-sqlite/kv-store";
 
+import * as Location from 'expo-location';
+
 const SavedDataContext = createContext();
 
 export const SavedDataProvider = ({ children }) => {
@@ -14,11 +16,36 @@ export const SavedDataProvider = ({ children }) => {
     // Cargamos los pets salvos al iniciar en la app
 
     useEffect(() => {
-        const loadStoredData = async () => {
+        let subscription;
+
+        const initialize = async () => {
+            // 1. Carregar Pet Salvo
             const storedPet = await AsyncStorage.getItem("@selectedPet");
             if (storedPet) setSelectedPetState(JSON.parse(storedPet));
+
+            // 2. Pedir permissão e vigiar localização
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') return;
+
+            subscription = await Location.watchPositionAsync(
+                {
+                    accuracy: Location.Accuracy.High,
+                    distanceInterval: 10,
+                },
+                (location) => {
+                    setUserLocation({
+                        lat: location.coords.latitude,
+                        lng: location.coords.longitude,
+                    });
+                }
+            );
         };
-        loadStoredData();
+
+        initialize();
+
+        return () => {
+            if (subscription) subscription.remove();
+        };
     }, []);
 
     // funcioón para cambiar el pet seleccionado globalmente

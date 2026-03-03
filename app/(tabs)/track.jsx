@@ -13,70 +13,58 @@ import useLocationManager from "../../src/hooks/useLocationManager";
 import ModalMailCapture from "../../src/components/ui/modals/ModalMailCapture"
 
 export default function Tracker(){
-    const { selectedPet } = useSavedData();
+        const { selectedPet } = useSavedData();
+
+    const { petLocation, sendLocationEmail, isSending } = useLocationManager(selectedPet);
 
     const { activateEmergency, status, resetStatus, themeColors } = useThemeStatus()
-
-    const { petLocation, setPetLocation, sendLocationEmail, isSending } = useLocationManager(selectedPet?.id);
 
     const [showMailModal, setShowMailModal] = useState(false);
 
     const handleMailAction = async () => {
         const success = await sendLocationEmail();
-        if (success) {
-            setShowMailModal(true);
-        }
+        if (success) setShowMailModal(true);
     }
-
-    useEffect(() => {
-        if (selectedPet) {
-            fetchPetLocation();
-        }
-    }, [selectedPet]);
-
-    const fetchPetLocation = async () => {
-        try {
-            const locations = await locationService.getPetsLocations([selectedPet.id]);
-            if (locations && locations.length > 0){
-                setPetLocation(locations[0]);
-            }
-        } catch (error) {
-            console.error("Error fetching pet location:", error);
-        }
-    };
 
     return(
         <View style={styles.container}>
-        <Maps 
-            location={petLocation}
-            petPhoto={selectedPet?.foto_url}
-        />
-        
-        {/* Overlay de informação ajustado */}
-        <View style={styles.overlayContainer}>
-            <View style={styles.infoCard}>
-                <View style={styles.headerRow}>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.petName}>{selectedPet?.nombre || "Ronnie"}</Text>
-                        <Text style={styles.locationText} numberOfLines={2}>
-                            <Text style={styles.locationLabel}>Ubicación: </Text>
-                            {petLocation 
-                                ? `${petLocation.direccion}, ${petLocation.provincia}` 
-                                : "Cargando dirección..."}
-                        </Text>
+            
+            {/* 🔥 O MAPA AGORA RECEBE location QUE VEM DO REALTIME */}
+            <Maps 
+                location={petLocation}
+                petPhoto={selectedPet?.foto_url}
+            />
+            
+            <View style={styles.overlayContainer}>
+                <View style={styles.infoCard}>
+                    <View style={styles.headerRow}> 
+                        <View style={styles.textContainer}> 
+                            <Text style={styles.petName}>{selectedPet?.nombre || "Ronnie"}</Text> 
+                            <Text style={styles.locationText} numberOfLines={2}> 
+                                <Text style={styles.locationLabel}>Ubicación: </Text> 
+                                {petLocation 
+                                    ? `${petLocation.direccion}, ${petLocation.provincia}` 
+                                    : "Cargando dirección..."
+                                } 
+                            </Text> 
+                        </View> 
+                        {/* <Image source={{ uri: selectedPet?.foto_url }} style={styles.miniAvatar} /> */} 
                     </View>
-                    <Image source={{ uri: selectedPet?.foto_url }} style={styles.miniAvatar} />
-                </View>
-
-                <View style={styles.buttonRow}>
-                    <EmergencyButton style={styles.btnEmergency} />
-                    <UbicationButton onPress={handleMailAction} loading={isSending} />
+                    <View style={styles.buttonRow}>
+                        <EmergencyButton />
+                        <UbicationButton 
+                            onPress={handleMailAction} 
+                            loading={isSending} 
+                        />
+                    </View>
                 </View>
             </View>
+            
+            <ModalMailCapture 
+                visible={showMailModal} 
+                onClose={() => setShowMailModal(false)}
+            />
         </View>
-        
-        <ModalMailCapture visible={showMailModal} onClose={() => setShowMailModal(false)}/>
-    </View>
     );
 }
 

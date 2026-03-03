@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, View, ActivityIndicator } from "rea
 
 export default function UbicationButton({ onPress, loading }){
     return(
-        <View style={{ flex: 0.48 }}>
+        <View style={{ flex: 1 }}>
             <TouchableOpacity 
                 style={[styles.btnSend, styles.btn, loading && { opacity: 0.7 }]}
                 onPress={onPress}

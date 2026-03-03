@@ -26,6 +26,7 @@ export default function EmergencyButton(){
         if (isEmergency) {
             // si esta en emergencia, el btn va decir "encontré mi masc"
             resetStatus();
+            setVisible(false);
         } else {
             setVisible(true);
         }
@@ -39,8 +40,8 @@ export default function EmergencyButton(){
 
     const confirmEmergency = () => {
        if (selectedPet && userLocation) {
-             activateEmergency(selectedPet, userLocation);
-            setVisible(true);
+            activateEmergency(selectedPet, userLocation);
+            setVisible(false);
             if (pathname !== "/track") {
                 router.push("/track")
             }
@@ -91,12 +92,14 @@ export default function EmergencyButton(){
 
 const styles = StyleSheet.create({
     btn:{
+        flex: 1,
         width: "100%",
         backgroundColor: "#ff8c09",
         padding: 15,
         borderRadius: 15,
         margin: 5,
-        alignContent: "center"
+        alignContent: "center",
+        alignItems: "center"
     },
     text:{
         textAlign: "center",

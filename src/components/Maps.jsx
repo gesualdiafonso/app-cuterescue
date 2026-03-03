@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE, AnimatedRegion } from "react-native-maps";
 import { StyleSheet, View, Image, Platform } from "react-native";
 import { useSavedData } from "../contexts/SaveDataContext";
 
@@ -16,20 +16,38 @@ export default function Maps({ location, petPhoto }) {
         longitudeDelta: 0.01,
     };
 
-    useEffect(() => {
-        if (location && mapRef.current) {
-            // Anima para mostrar ambos (Pet e Usuário) se ambos existirem
-            const coordinates = [
-                { latitude: location.lat, longitude: location.lng }
-            ];
-            if (userLocation) {
-                coordinates.push({ latitude: userLocation.lat, longitude: userLocation.lng });
-            }
+    const animatedRegion = useRef(
+        new AnimatedRegion({
+            latitude: location?.lat ?? -34.5711,
+            longitude: location?.lng ?? -58.4233,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+        })
+    ).current;
 
-            mapRef.current.fitToCoordinates(coordinates, {
-                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-                animated: true,
-            });
+    useEffect(() => {
+        if (location?.lat && location?.lng) {
+            // 1. Move o marcador (o ícone do pet) suavemente
+            animatedRegion.timing({
+                latitude: location.lat,
+                longitude: location.lng,
+                duration: 3500, // Um pouco menos que os 5s da simulação para não atrasar
+                useNativeDriver: false,
+            }).start();
+
+            // 2. Move a câmera do mapa para seguir o pet
+            if (mapRef.current) {
+                mapRef.current.animateCamera({
+                    center: {
+                        latitude: location.lat,
+                        longitude: location.lng,
+                    },
+                    pitch: 0,
+                    heading: 0,
+                    altitude: 1000,
+                    zoom: 17,
+                }, { duration: 2000 });
+            }
         }
     }, [location]);
 
@@ -42,14 +60,14 @@ export default function Maps({ location, petPhoto }) {
                 initialRegion={region}
             >
                 {location?.lat && location?.lng && (
-                    <Marker coordinate={{ latitude: location.lat, longitude: location.lng }}>
+                    <Marker.Animated coordinate={animatedRegion}>
                         <View style={styles.pin}>
                             <Image
                                 source={{ uri: petPhoto }}
                                 style={{ width: "100%", height: "100%" }}
                             />
                         </View>
-                    </Marker>
+                    </Marker.Animated>
                 )}
             </MapView>
         </View>

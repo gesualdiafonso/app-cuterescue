@@ -10,7 +10,7 @@ import { Alert } from "react-native";
 export default function useLocationManager(selectedPet){
     const [petLocation, setPetLocation] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isSending, setIsSeding] = useState(false);
+    const [isSending, setIsSending] = useState(false);
     const { user } = useAuth();
 
     const selectedPetId = selectedPet?.id;
@@ -59,18 +59,17 @@ export default function useLocationManager(selectedPet){
     }, [selectedPetId]);
 
     const sendLocationEmail = async () => {
-        if (!petLocation || !user) {
-            Alert.alert("Error", "No hay ubicación disponible el usuario no fue identificado");
-            return;
+        if (!petLocation || !user || !selectedPet) {
+            Alert.alert("Error", "Informações insuficientes para enviar o e-mail.");
+            return false;
         }
 
-        setIsSeding(true);
+        setIsSending(true);
         try {
             const safeAddress = [
                 petLocation.direccion,
-                petLocation.provincia,
-                petLocation.codigoPostal
-            ].filter(Boolean).join(", ");
+                petLocation.provincia
+            ].filter(Boolean).join(", ") || "Dirección no disponible";
 
             await emailService.sendLocationEmail({
                 userEmail: user.email,
@@ -82,11 +81,10 @@ export default function useLocationManager(selectedPet){
 
             return true;
         } catch (error) {
-            console.error(error);
             Alert.alert("Error", "No se pudo enviar el correo.");
             return false;
-        } finally{
-            setIsSeding(false);
+        } finally {
+            setIsSending(false);
         }
     };
 

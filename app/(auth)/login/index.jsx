@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 
 import { useRouter } from "expo-router";
-import { Platform } from "react-native";
 
 import { BackgroundCanvas, Container, FormTitle, Input, Label, Link, LinkText, Button, ButtonText, FormArea, AreaInput, Logo } from "../../../src/styles/forms.styles";
 import { useAuth } from "../../../src/contexts/AuthContext";
@@ -31,50 +30,64 @@ export default function Login(){
             resizeMode="cover"
             opacity={0.4}
         >
-         <Container
-                // se estiver no ios, empurra o conteudo pra cima
-                behavior={Platform.OS === "ios" ? "padding" : ""}
-                enabled
+         <KeyboardAvoidingView
+             behavior={Platform.OS === "ios" ? "padding" : "height" }
+            style={{ flex: 1 }}
+        >
+
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
             >
 
-                <FormArea>
-                    <Logo 
-                        source={require('../../../assets/logos/LogoColor.png')}
-                    />
-                    <FormTitle>Accedé a tu cuenta</FormTitle>
+                <Container
+                    // se estiver no ios, empurra o conteudo pra cima
+                    behavior={Platform.OS === "ios" ? "padding" : ""}
+                    enabled
+                >
 
-                    <AreaInput>
-                        <Label>Correo Electronico</Label>
-                        <Input
-                            placeholder="Ingresa tu correo"
-                            value={email}
-                            onChangeText={setEmail}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
+                    <FormArea>
+                        <Logo 
+                            source={require('../../../assets/logos/LogoColor.png')}
                         />
-                    </AreaInput>
+                        <FormTitle>Accedé a tu cuenta</FormTitle>
 
-                    <AreaInput>
-                        <Label>Contraseña</Label>
-                        <Input
-                            placeholder="Ingresa tu contraseña"
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry={true}
-                        />
-                    </AreaInput>
+                        <AreaInput>
+                            <Label>Correo Electronico</Label>
+                            <Input
+                                placeholder="Ingresa tu correo"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                            />
+                        </AreaInput>
 
-                    <Button onPress={handleLogin}>
-                        <ButtonText>Ingresar</ButtonText>
-                    </Button>
+                        <AreaInput>
+                            <Label>Contraseña</Label>
+                            <Input
+                                placeholder="Ingresa tu contraseña"
+                                keyboardType="password"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry={true}
+                            />
+                        </AreaInput>
 
-                    <Link onPress={() => router.push('/(auth)/register')}>
-                        <LinkText>Registrar</LinkText>
-                    </Link>
+                        <Button onPress={handleLogin}>
+                            <ButtonText>Ingresar</ButtonText>
+                        </Button>
 
-                </FormArea>
+                        <Link onPress={() => router.push('/(auth)/register')}>
+                            <LinkText>Registrar</LinkText>
+                        </Link>
 
-            </Container>
+                    </FormArea>
+
+                </Container>
+
+            </TouchableWithoutFeedback>
+
+         </KeyboardAvoidingView>
 
        </BackgroundCanvas>
     )

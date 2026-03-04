@@ -59,7 +59,7 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
     
     return(
         <Modal visible={visible} animationType="slide" transparent={true}>
-            <TouchableWithoutFeedback onPress={Keyboard.dimiss}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.overlay}>
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}

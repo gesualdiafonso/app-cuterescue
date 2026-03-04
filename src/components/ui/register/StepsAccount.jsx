@@ -52,6 +52,7 @@ export default function StepAccount({ data, onNext }) {
                 <Input
                     placeholder="Confirmar Contraseña"
                     secureTextEntry={!showPass}
+                    keyboardType="password"
                     value={localData.confirmPassword}
                     onChangeText={(t) => setLocalData({...localData, confirmPassword: t})}
                 />

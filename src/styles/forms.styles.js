@@ -66,7 +66,7 @@ export const Input = styled.TextInput`
 export const Label = styled.Text`
     font-size: 16px;
     margin-bottom: 5px;
-    color: #d5d5d5;
+    color: #fff;
 `;
 
 export const Link = styled.TouchableOpacity`

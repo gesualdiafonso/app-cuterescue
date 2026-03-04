@@ -13,7 +13,7 @@ import useLocationManager from "../../src/hooks/useLocationManager";
 import ModalMailCapture from "../../src/components/ui/modals/ModalMailCapture"
 
 export default function Tracker(){
-        const { selectedPet } = useSavedData();
+    const { selectedPet } = useSavedData();
 
     const { petLocation, sendLocationEmail, isSending } = useLocationManager(selectedPet);
 

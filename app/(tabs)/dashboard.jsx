@@ -11,13 +11,16 @@ import usePetManager from "../../src/hooks/usePetManager";
 import { useNavigation, useRouter } from "expo-router";
 import EmergencyButton from "../../src/components/ui/EmergencyButton";
 import TravelButton from "../../src/components/ui/TravelButton";
+import { useThemeStatus } from "../../src/contexts/ThemeContext";
 
 export default function Dashboard() {
     const { user } = useAuth();
     const [ profile, setProfile ] = useState(null);
     const [ loading, setLoading ] = useState(true);
-    const navigation = useNavigation()
-    const router = useRouter()
+    const navigation = useNavigation();
+    const router = useRouter();
+
+    const { theme } = useThemeStatus();
 
     // Hook de pets
     const { pets, loading: loadingPets, refreshPets } = usePetManager();
@@ -50,7 +53,7 @@ export default function Dashboard() {
 
     if (loading) return <ActivityIndicator size='large' style={{ flex: 1 }} />
     return (
-        <ScrollView style={{ backgroundColor: "#fff" }} contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView style={{ backgroundColor: theme.background }} contentContainerStyle={{ flexGrow: 1 }}>
              <View style={styles.layoutContainer}>
                 <Container>
                     <View style={styles.layoutImage}>

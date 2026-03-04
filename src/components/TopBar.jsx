@@ -3,13 +3,16 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/drawer';
+import { useThemeStatus } from '../contexts/ThemeContext';
 
 export default function TopBar ({ selectedPet, isLoading }) {
 
   const navigation = useNavigation();
 
+  const { theme } = useThemeStatus();
+  
   return(
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.topBar }]}>
             {/* Lado del logo y nombre de la marca */}
             <View>
                 <Image 
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 50, // Ajuste conforme o entalhe (Notch) do aparelho
-    backgroundColor: '#FFF',
+    //backgroundColor: '#FFF',
     paddingBottom: 10,
     borderBottomColor: '#eee',
     borderBottomWidth: 1,

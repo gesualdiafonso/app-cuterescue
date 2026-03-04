@@ -12,6 +12,8 @@ import { getVeterinarias24 } from "../../src/services/veterinaries.services";
 import { locationService } from "../../src/services/location.services";
 import { authService } from "../../src/services/auth.services";
 
+import { useThemeStatus } from "../../src/contexts/ThemeContext";
+
 export default function Vet24hrs() {
     const [userLocation, setUserLocation] = useState(null);
     const [sortedVets, setSortedVets] = useState([]);
@@ -19,6 +21,8 @@ export default function Vet24hrs() {
     const [loading, setLoading] = useState(true);
 
     const scrollViewRef = useRef(null);
+
+    const { theme } = useThemeStatus();
 
     useEffect(() => {
         const loadVetsAndLocation = async () => {
@@ -95,7 +99,7 @@ export default function Vet24hrs() {
     }
 
     return (
-        <ScrollView ref={scrollViewRef} style={{ width: "100%" }}>
+        <ScrollView ref={scrollViewRef} style={{ width: "100%", backgroundColor: theme.backgroundColor }}>
             <Container>
                 <View style={{ width: "100%" }}>
                     <MapVet 

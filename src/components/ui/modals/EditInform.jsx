@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { 
     View, Modal, StyleSheet, 
     ActivityIndicatorm, Alert, Text, 
-    TextInput, ScrollView, TouchableOpacity
+    TextInput, ScrollView, TouchableOpacity,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Platform, Keyboard
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import { userService } from '../../../services/user.services'
@@ -56,78 +59,85 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
     
     return(
         <Modal visible={visible} animationType="slide" transparent={true}>
-            <View style={styles.overlay}>
-                <View style={styles.modalContainer}>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <Text style={styles.title}>Editar Perfil</Text>
+            <TouchableWithoutFeedback onPress={Keyboard.dimiss}>
+                <View style={styles.overlay}>
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        style={{ width: '100%', alignItems: 'center' }}
+                    >
+                        <View style={styles.modalContainer}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <Text style={styles.title}>Editar Perfil</Text>
 
-                        <TouchableOpacity style={styles.imageBtn} onPress={pickImage}>
-                            <Text style={{color: 'blue'}}>📸 Cambiar Foto de Perfil</Text>
-                            {image && <Text style={{fontSize: 10}}>{image.uri.substring(0, 30)}...</Text>}
-                        </TouchableOpacity>
+                                <TouchableOpacity style={styles.imageBtn} onPress={pickImage}>
+                                    <Text style={{color: 'blue'}}>📸 Cambiar Foto de Perfil</Text>
+                                    {image && <Text style={{fontSize: 10}}>{image.uri.substring(0, 30)}...</Text>}
+                                </TouchableOpacity>
 
-                        <Text style={styles.label}>Nombre</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            value={formData.nombre} 
-                            onChangeText={(t) => setFormData({...formData, nombre: t})}
-                        />
-
-                        <Text style={styles.label}>Apellido</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            value={formData.apellido} 
-                            onChangeText={(t) => setFormData({...formData, apellido: t})}
-                        />
-
-                        <Text style={styles.label}>Teléfono</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            keyboardType="phone-pad"
-                            value={formData.telefono} 
-                            onChangeText={(t) => setFormData({...formData, telefono: t})}
-                        />
-
-                        <View style={styles.separator}><Text>Ubicación</Text></View>
-
-                        <Text style={styles.label}>Dirección</Text>
-                        <TextInput 
-                            style={styles.input} 
-                            value={formData.direccion} 
-                            onChangeText={(t) => setFormData({...formData, direccion: t})}
-                        />
-
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                           <View style={{width: '45%'}}>
-                                <Text style={styles.label}>Provincia</Text>
+                                <Text style={styles.label}>Nombre</Text>
                                 <TextInput 
                                     style={styles.input} 
-                                    value={formData.provincia} 
-                                    onChangeText={(t) => setFormData({...formData, provincia: t})}
+                                    value={formData.nombre} 
+                                    onChangeText={(t) => setFormData({...formData, nombre: t})}
                                 />
-                           </View>
-                           <View style={{width: '45%'}}>
-                                <Text style={styles.label}>Cod. Postal</Text>
+
+                                <Text style={styles.label}>Apellido</Text>
                                 <TextInput 
                                     style={styles.input} 
-                                    value={formData.codigoPostal} 
-                                    onChangeText={(t) => setFormData({...formData, codigoPostal: t})}
+                                    value={formData.apellido} 
+                                    onChangeText={(t) => setFormData({...formData, apellido: t})}
                                 />
-                           </View>
-                        </View>
 
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={onClose}>
-                                <Text style={{color: '#fff'}}>Cancelar</Text>
-                            </TouchableOpacity>
-                            
-                            <TouchableOpacity style={[styles.btn, styles.btnSave]} onPress={handleSave} disabled={loading}>
-                                {loading ? <ActivityIndicator color="#fff" /> : <Text style={{color: '#fff'}}>Guardar</Text>}
-                            </TouchableOpacity>
+                                <Text style={styles.label}>Teléfono</Text>
+                                <TextInput 
+                                    style={styles.input} 
+                                    keyboardType="phone-pad"
+                                    value={formData.telefono} 
+                                    onChangeText={(t) => setFormData({...formData, telefono: t})}
+                                />
+
+                                <View style={styles.separator}><Text>Ubicación</Text></View>
+
+                                <Text style={styles.label}>Dirección</Text>
+                                <TextInput 
+                                    style={styles.input} 
+                                    value={formData.direccion} 
+                                    onChangeText={(t) => setFormData({...formData, direccion: t})}
+                                />
+
+                                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <View style={{width: '45%'}}>
+                                        <Text style={styles.label}>Provincia</Text>
+                                        <TextInput 
+                                            style={styles.input} 
+                                            value={formData.provincia} 
+                                            onChangeText={(t) => setFormData({...formData, provincia: t})}
+                                        />
+                                </View>
+                                <View style={{width: '45%'}}>
+                                        <Text style={styles.label}>Cod. Postal</Text>
+                                        <TextInput 
+                                            style={styles.input} 
+                                            value={formData.codigoPostal} 
+                                            onChangeText={(t) => setFormData({...formData, codigoPostal: t})}
+                                        />
+                                </View>
+                                </View>
+
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={onClose}>
+                                        <Text style={{color: '#fff'}}>Cancelar</Text>
+                                    </TouchableOpacity>
+                                    
+                                    <TouchableOpacity style={[styles.btn, styles.btnSave]} onPress={handleSave} disabled={loading}>
+                                        {loading ? <ActivityIndicator color="#fff" /> : <Text style={{color: '#fff'}}>Guardar</Text>}
+                                    </TouchableOpacity>
+                                </View>
+                            </ScrollView>
                         </View>
-                    </ScrollView>
+                    </KeyboardAvoidingView>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </Modal>
     )
 }

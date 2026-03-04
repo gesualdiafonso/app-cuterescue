@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { View, Modal, Text, Image, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, ActivityIndicator } from "react-native"
+import { 
+    View, Modal, Text, Image, 
+    TouchableOpacity, StyleSheet, 
+    TextInput, Alert, ScrollView, 
+    ActivityIndicator, KeyboardAvoidingView,
+    Platform, TouchableWithoutFeedback, Keyboard
+} from "react-native"
 import * as ImagePicker from "expo-image-picker";
 import { Dropdown } from "react-native-element-dropdown";
 import usePetManager from "../../../hooks/usePetManager";
@@ -75,106 +81,115 @@ export default function EditInfoPet({ visible, onClose, pet }){
 
     return (
         <Modal visible={visible} animationType="slide" transparent={true}>
-            <View style={styles.overlay}>
-                <View style={styles.content}>
-                    <View style={styles.header}>
-                        <Text style={styles.title}>Editar Información</Text>
-                        <TouchableOpacity
-                            onPress={onClose}
-                        >
-                            <Text>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <ScrollView>
-                        <TouchableOpacity 
-                            style={styles.imageBox}
-                            onPress={pickImage}
-                        >
-                            <Image source={{ uri: image?.uri }} style={styles.images} />
-                            <Text style={styles.imageLabel}>Cambiar Fotos</Text>
-                        </TouchableOpacity>
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
+            >
+                <View style={styles.overlay}>
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        style={{ width: '100%' }}
+                    >
+                        <View style={styles.content}>
+                            <View style={styles.header}>
+                                <Text style={styles.title}>Editar Información</Text>
+                                <TouchableOpacity
+                                    onPress={onClose}
+                                >
+                                    <Text>X</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <ScrollView>
+                                <TouchableOpacity 
+                                    style={styles.imageBox}
+                                    onPress={pickImage}
+                                >
+                                    <Image source={{ uri: image?.uri }} style={styles.images} />
+                                    <Text style={styles.imageLabel}>Cambiar Fotos</Text>
+                                </TouchableOpacity>
 
-                        <Text style={styles.label}>Nombre *</Text>
-                        <TextInput 
-                            style={styles.input}
-                            value={form.nombre}
-                            valueField={form.nombre}
-                            labelField={form.nombre}
-                            onChangeText={v => setForm({...form, nombre: v})}
-                        />
+                                <Text style={styles.label}>Nombre *</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    value={form.nombre}
+                                    valueField={form.nombre}
+                                    labelField={form.nombre}
+                                    onChangeText={v => setForm({...form, nombre: v})}
+                                />
 
-                        <Text style={styles.label}>Especie *</Text>
-                        <Dropdown 
-                            style={styles.dropdown}
-                            data={especieData}
-                            labelField="label"
-                            valueField="value"
-                            placeholder={form.especie}
-                            value={form.especie}
-                            onChange={item => setForm({...form, especie: item.especie})}
-                        />
+                                <Text style={styles.label}>Especie *</Text>
+                                <Dropdown 
+                                    style={styles.dropdown}
+                                    data={especieData}
+                                    labelField="label"
+                                    valueField="value"
+                                    placeholder={form.especie}
+                                    value={form.especie}
+                                    onChange={item => setForm({...form, especie: item.especie})}
+                                />
 
-                        <Text style={styles.label}>Raza *</Text>
-                        <TextInput 
-                            style={styles.input}
-                            value={form.raza}
-                            valueField={form.raza}
-                            labelField={form.raza}
-                            onChangeText={v => setForm({...form, raza: v})}
-                        />
+                                <Text style={styles.label}>Raza *</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    value={form.raza}
+                                    valueField={form.raza}
+                                    labelField={form.raza}
+                                    onChangeText={v => setForm({...form, raza: v})}
+                                />
 
-                        <Text style={styles.label}>Sexo *</Text>
-                        <Dropdown 
-                            style={styles.dropdown}
-                            data={sexoData}
-                            labelField="label"
-                            valueField="value"
-                            placeholder={form.sexo}
-                            value={form.sexo}
-                            onChange={item => setForm({...form, sexo: item.sexo})}
-                        />
+                                <Text style={styles.label}>Sexo *</Text>
+                                <Dropdown 
+                                    style={styles.dropdown}
+                                    data={sexoData}
+                                    labelField="label"
+                                    valueField="value"
+                                    placeholder={form.sexo}
+                                    value={form.sexo}
+                                    onChange={item => setForm({...form, sexo: item.sexo})}
+                                />
 
-                        <Text style={styles.label}>Color *</Text>
-                        <TextInput 
-                            style={styles.input}
-                            value={form.color}
-                            valueField={form.color}
-                            labelField={form.color}
-                            onChangeText={v => setForm({...form, color: v})}
-                        />
+                                <Text style={styles.label}>Color *</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    value={form.color}
+                                    valueField={form.color}
+                                    labelField={form.color}
+                                    onChangeText={v => setForm({...form, color: v})}
+                                />
 
-                        <Text style={styles.label} t>Peso (kg)</Text>
-                        <TextInput 
-                            style={styles.input}
-                            value={form.peso}
-                            valueField={form.peso}
-                            labelField={form.peso}
-                            onChangeText={v => setForm({...form, peso: v})}
-                        />
+                                <Text style={styles.label} t>Peso (kg)</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    value={form.peso}
+                                    valueField={form.peso}
+                                    labelField={form.peso}
+                                    onChangeText={v => setForm({...form, peso: v})}
+                                />
 
-                        <Text style={styles.label}>Estado de salud *</Text>
-                        <TextInput 
-                            style={styles.input}
-                            value={form.estado_salud}
-                            valueField={form.estado_salud}
-                            labelField={form.estado_salud}
-                            onChangeText={v => setForm({...form, estado_salud: v})}
-                        />
+                                <Text style={styles.label}>Estado de salud *</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    value={form.estado_salud}
+                                    valueField={form.estado_salud}
+                                    labelField={form.estado_salud}
+                                    onChangeText={v => setForm({...form, estado_salud: v})}
+                                />
 
-                        <TouchableOpacity
-                            style={[styles.saveButton, isSubmitting && styles.disableButton]}
-                            onPress={handleUpdate}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <Text style={styles.saveButtonText}>Guardar Mascota</Text>
-                            )}
-                        </TouchableOpacity>
-                    </ScrollView>
+                                <TouchableOpacity
+                                    style={[styles.saveButton, isSubmitting && styles.disableButton]}
+                                    onPress={handleUpdate}
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <ActivityIndicator color="#fff" />
+                                    ) : (
+                                        <Text style={styles.saveButtonText}>Guardar Mascota</Text>
+                                    )}
+                                </TouchableOpacity>
+                            </ScrollView>
+                        </View>
+                    </KeyboardAvoidingView>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </Modal>
     )
 }

@@ -93,8 +93,7 @@ export default function AddCard(){
         if (!canAddPet) {
             Alert.alert(
                 "Límite alcanzado",
-                `Tu plan actual permite un máximo de ${limits?.max_mascotas} mascotas.`,
-                "Mejor tu plan para agregar más."
+                `Tu plan actual permite un máximo de ${limits?.max_mascotas} mascotas. Mejor tu plan para agregar más.`,
             );
             return;
         }

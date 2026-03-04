@@ -13,9 +13,9 @@ export default function StepAccount({ data, onNext }) {
     const [showPass, setShowPass] = useState(false);
 
     const handleNext = () => {
-        if (!localData.email.includes("@")) return Alert.alert("Erro", "Email inválido");
-        if (localData.password.length < 6) return Alert.alert("Erro", "Senha muito curta");
-        if (localData.password !== localData.confirmPassword) return Alert.alert("Erro", "As senhas não coincidem");
+        if (!localData.email.includes("@")) return Alert.alert("Error", "Email inválido");
+        if (localData.password.length < 6) return Alert.alert("Error", "La contraseña es muy corta");
+        if (localData.password !== localData.confirmPassword) return Alert.alert("Error", "Las contraseñas no coinciden");
         onNext(localData);
     };
 

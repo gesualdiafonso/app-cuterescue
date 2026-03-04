@@ -45,6 +45,10 @@ const Line = styled.View`
             </Dot>
 
             <Line />
+
+            <Dot active={currentStep >= 4}>
+                <Text styeld={{ color: 'white' }}> 4 </Text>
+            </Dot>
         </StepWrapper>
     )
  }

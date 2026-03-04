@@ -1,8 +1,17 @@
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { 
+    View, Text, TouchableOpacity, 
+    Alert, KeyboardAvoidingView, 
+    Platform, Keyboard, ScrollView, 
+    TouchableWithoutFeedback
+} from "react-native";
 
 import { useRouter } from "expo-router";
 
-import { ContainerScroll, FormTitle, AreaInput, Input, Label, Link, LinkText, Button, ButtonText, FormArea, BackgroundCanvas, } from "../../../src/styles/forms.styles";
+import { 
+    ContainerScroll, FormTitle, AreaInput, 
+    Input, Label, Link, LinkText, Button, ButtonText, 
+    FormArea, BackgroundCanvas, 
+} from "../../../src/styles/forms.styles";
 import StepAccount from "../../../src/components/ui/register/StepsAccount";
 import StepPersonal from "../../../src/components/ui/register/StepPersonal";
 import StepAddress from "../../../src/components/ui/register/StepsAddress";
@@ -63,25 +72,41 @@ export default function Register(){
             opacity={0.4}
         >
 
-            <ContainerScroll>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height" }
+                style={{ flex: 1 }}
+            >
 
-                <FormArea>
+                <TouchableWithoutFeedback
+                    onPress={Keyboard.dismiss}
+                >
 
-                    <FormTitle>Crear una nueva cuenta</FormTitle>
-                    <StepIndicator currentStep={step} />
+                    <ContainerScroll
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        keyboardShouldPersistTaps="handled"
+                    >
 
-                    {step === 1 && <StepAccount data={formData} onNext={handleNext} />}
-                    {step === 2 && <StepPersonal data={formData} onNext={handleNext} onBack={handleBack} />}
-                    {step === 3 && <StepAddress data={formData} onNext={handleNext} onBack={handleBack} />}
-                    {step === 4 && <StepConfirm data={formData} onConfirm={handleFinalSubmit} onBack={handleBack} />}
+                        <FormArea>
 
-                    <Link onPress={() => router.replace('/(auth)/login/')}>
-                        <LinkText>Ya tengo cuenta.</LinkText>
-                    </Link>
+                            <FormTitle>Crear una nueva cuenta</FormTitle>
+                            <StepIndicator currentStep={step} />
 
-                </FormArea>
+                            {step === 1 && <StepAccount data={formData} onNext={handleNext} />}
+                            {step === 2 && <StepPersonal data={formData} onNext={handleNext} onBack={handleBack} />}
+                            {step === 3 && <StepAddress data={formData} onNext={handleNext} onBack={handleBack} />}
+                            {step === 4 && <StepConfirm data={formData} onConfirm={handleFinalSubmit} onBack={handleBack} />}
 
-            </ContainerScroll>
+                            <Link onPress={() => router.replace('/(auth)/login/')}>
+                                <LinkText>Ya tengo cuenta.</LinkText>
+                            </Link>
+
+                        </FormArea>
+
+                    </ContainerScroll>
+
+                </TouchableWithoutFeedback>
+
+            </KeyboardAvoidingView>
 
         </BackgroundCanvas>
     )

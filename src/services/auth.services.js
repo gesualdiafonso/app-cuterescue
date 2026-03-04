@@ -54,17 +54,28 @@ export const authService = {
             try {
                 const query = `${direccion}, ${provincia}, Argentina`;
                 const response = await fetch(
-                    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`
+                    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`,
+                    {
+                        headers: {
+                            'User-Agent': 'MeuAppReactNative (contato@seuemail.com)' // Identifique seu app aqui
+                        }
+                    }
                 );
-                const geoData = await response.json();
 
-                if (geoData && geoData.length > 0) {
-                    lat = parseFloat(geoData[0].lat);
-                    lng = parseFloat(geoData[0].lon);
+                // Verifica se a resposta é HTML em vez de JSON
+                const contentType = response.headers.get("content-type");
+                if (response.ok && contentType && contentType.includes("application/json")) {
+                    const geoData = await response.json();
+                    if (geoData && geoData.length > 0) {
+                        lat = parseFloat(geoData[0].lat);
+                        lng = parseFloat(geoData[0].lon);
+                    }
+                } else {
+                    const textError = await response.text();
+                    console.warn("Nominatim retornou algo que não é JSON:", textError.substring(0, 100));
                 }
             } catch (geoErr) {
                 console.error("Erro no Geocoding:", geoErr);
-                // Mesmo que o geocoding falhe, continuamos para não travar o registro
             }
 
             // 5. Inserimos en la tabla de 'localización'

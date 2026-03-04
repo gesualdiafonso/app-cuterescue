@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { 
     View, Modal, StyleSheet, 
-    ActivityIndicatorm, Alert, Text, 
+    ActivityIndicator, Alert, Text, 
     TextInput, ScrollView, TouchableOpacity,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,

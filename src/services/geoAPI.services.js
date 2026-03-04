@@ -15,6 +15,53 @@ En caso de error o falta de resultados, devuelve coordenadas nulas
 
 const USER_AGENT = "CuteRescueApp/1.0 (gesualdiafonsoarr@gmail.com)" // Identificación para el OSM
 
+/**
+ * Funçao principal para validar e obter coordenadas.
+ * Retorna um objeto com status de sucesso para que a UI possa decidir se avança ou não.
+ */
+export async function geocodeAddress(direccion, provincia, codigoPostal) {
+    try {
+        // Chamamos a função de busca que você já possui
+        const result = await getCoordinatesFromAddress({
+            direccion,
+            codigoPostal,
+            provincia
+        });
+
+        // Verificamos se as coordenadas são válidas
+        if (result.lat && result.lng) {
+            return {
+                success: true,
+                lat: result.lat,
+                lng: result.lng,
+                source: result.source
+            };
+        }
+
+        // Se chegou aqui, o endereço não foi encontrado nos dois intentos
+        return {
+            success: false,
+            error: "No se pudo encontrar la ubicación exacta. Por favor, verifique la calle y el número."
+        };
+
+    } catch (error) {
+        console.error("Erro crítico no geocodeAddress:", error);
+        
+        // Caso o erro seja o SyntaxError (HTML retornado), tratamos aqui
+        if (error.message.includes("Unexpected character: <")) {
+            return {
+                success: false,
+                error: "Servidor de mapas temporalmente ocupado. Intente de nuevo en unos segundos."
+            };
+        }
+
+        return {
+            success: false,
+            error: "Error de conexión al validar la dirección."
+        };
+    }
+}
+
 export async function getCoordinatesFromAddress({
   direccion,
   codigoPostal,

@@ -59,7 +59,7 @@ export default function StepPersonal({ data, onNext, onBack }){
 
             <AreaInput>
                 <Input 
-                    placeholder="Apellid"
+                    placeholder="Apellido"
                     value={localData.apellido}
                     onChangeText={(t) => setLocalData({...localData, apellido: t})}
                 />
@@ -104,7 +104,7 @@ export default function StepPersonal({ data, onNext, onBack }){
 
             <AreaInput>
                 <Input 
-                    placeholder="Edad (DD/MM/AAAA)"
+                    placeholder="Fecha de nacimiento (DD/MM/AAAA)"
                     keyboardType="numeric"
                     maxLength={10}
                     value={localData.fechaNacimiento}
@@ -133,8 +133,16 @@ export default function StepPersonal({ data, onNext, onBack }){
             <Button onPress={handleNext}>
                 <ButtonText>Siguiente</ButtonText>
             </Button>
-            <Button style={{backgroundColor: '#666'}} onPress={onBack}>
-                <ButtonText>Volver</ButtonText>
+            <Button 
+                style={{
+                    backgroundColor: '#fff', 
+                    marginTop: 10,
+                    borderColor: '#000',
+                    borderWidth: 1,
+                    
+                }} 
+                onPress={onBack}>
+                <ButtonText style={{ color: '#000'}}>Volver atrás</ButtonText>
             </Button>
         </>
     )

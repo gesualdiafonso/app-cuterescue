@@ -3,10 +3,12 @@ import { AreaInput, Input, Button, ButtonText } from "../../../styles/forms.styl
 import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
 import { Alert, StyleSheet } from "react-native";
+import { geocodeAddress } from "../../../services/geoAPI.services";
 
 export default function StepAddress({ data, onNext, onBack }){
     const [localData, setLocalData] = useState(data);
     const [isFocus, setIsFocus] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // Datos
     const provincias = [
@@ -17,11 +19,29 @@ export default function StepAddress({ data, onNext, onBack }){
         { label: 'Buenos Aires Interior', value: 'Buenos Aires Interior'},
     ]
 
-    const handleNext = () => {
+    const handleNext = async () => {
             if (!localData.direccion || !localData.codigoPostal || !localData.provincia) {
-                return Alert.alert("Campos incompletos", "Por favor, completar todos los campos!")
+                return Alert.alert("Campos incompletos", "Por favor, completar todos los campos!");
             }
-    
+            setLoading(true);
+            try {
+                // Importe a função geocodeAddress que criamos acima
+                const geo = await geocodeAddress(localData.direccion, localData.provincia);
+
+                if (geo.success) {
+                    // Se achou as coordenadas, salva no localData e avança
+                    onNext({ ...localData, lat: geo.lat, lng: geo.lng });
+                } else {
+                    Alert.alert(
+                        "Dirección no encontrada", 
+                        "No pudimos localizar esta dirección. Por favor, verifique el nombre de la calle y numeración."
+                    );
+                }
+            } catch (err) {
+                Alert.alert("Error de conexión", "No pudimos validar la dirección. Intente de nuevo.");
+            } finally {
+                setLoading(false);
+            }
             onNext(localData);
         }
     return(
@@ -29,7 +49,7 @@ export default function StepAddress({ data, onNext, onBack }){
             <AreaInput>
                 <Input
                     placeholder="Dirección"
-                    keyboradType="words"
+                    keyboardType="words"
                     autoCapitalize="true"
                     value={localData.direccion}
                     onChangeText={(t) => setLocalData({...localData, direccion: t})}
@@ -59,18 +79,25 @@ export default function StepAddress({ data, onNext, onBack }){
             <AreaInput>
                 <Input
                     placeholder="Código Postal"
-                    keyboradType="numeric"
+                    keyboardType="numeric"
                     autoCapitalize="true"
                     value={localData.codigoPostal}
                     onChangeText={(t) => setLocalData({...localData, codigoPostal: t})}
                 />
             </AreaInput>
 
-            <Button onPress={() => onNext(localData)}>
-                <ButtonText>Siguiente</ButtonText>
+            <Button onPress={handleNext} disabled={loading}>
+                <ButtonText>{loading ? "Validando..." : "Siguiente"}</ButtonText>
             </Button>
-            <Button style={{backgroundColor: '#666', marginTop: 10}} onPress={onBack}>
-                <ButtonText>Volver</ButtonText>
+            <Button style={{
+                    backgroundColor: '#fff', 
+                    marginTop: 10,
+                    borderColor: '#000',
+                    borderWidth: 1,
+                    
+                    }} 
+                    onPress={onBack}>
+                <ButtonText style={{ color: '#000'}}>Volver atrás</ButtonText>
             </Button>
         </> 
     )

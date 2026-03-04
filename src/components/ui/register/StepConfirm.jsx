@@ -28,7 +28,11 @@ const Label = styled.Text`
 
 export default function StepConfirm({ data, onConfirm, onBack }){
     return(
-        <ScrollView>
+        <ScrollView
+            style={{
+                width: '100%'
+            }}
+        >
 
             <InfoBox>
                 <InfoText><Label>Nome:</Label> {data.nombre} {data.apellido}</InfoText>
@@ -45,8 +49,14 @@ export default function StepConfirm({ data, onConfirm, onBack }){
             <Button onPress={onConfirm}>
                 <ButtonText>Confirmar y Registrar</ButtonText>
             </Button>
-            <Button style={{backgroundColor: '#666', marginTop: 10}} onPress={onBack}>
-                <ButtonText>Corregir Datos</ButtonText>
+            <Button style={{
+                    backgroundColor: '#fff', 
+                    marginTop: 10,
+                    borderColor: '#000',
+                    borderWidth: 1,
+                    
+                }}  onPress={onBack}>
+                <ButtonText style={{ color: '#000'}}>Corregir Datos</ButtonText>
             </Button>
         </ScrollView>
     )

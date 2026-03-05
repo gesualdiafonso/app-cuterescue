@@ -45,7 +45,8 @@ export const userService = {
             const { error: uploadError } = await supabase.storage
                 .from("avatars")
                 .upload(fileName, blob, {
-                contentType: file.type || 'image/jpeg',
+                    contentType: file.type || 'image/jpeg',
+                    upsert: true
                 });
 
             if (uploadError) throw uploadError;
@@ -54,16 +55,18 @@ export const userService = {
                 .from("avatars")
                 .getPublicUrl(fileName);
 
-            foto_url = `${data.publicUrl}?t=${Date.now()}`;;
+            // SALVE APENAS A URL LIMPA (Sem o ?t=...)
+            foto_url = data.publicUrl; 
         }
+        const updateData = {...formData};
+        if (foto_url) updateData.foto_url = foto_url
 
         // 1. Actualiza la tabal usuarios
         const { error: userError } = await supabase
             .from("usuarios")
-            .update({
-                ...formData,
-                foto_url
-            })
+            .update(
+                updateData
+            )
             .eq("id", userId);
 
         if (userError) throw userError;

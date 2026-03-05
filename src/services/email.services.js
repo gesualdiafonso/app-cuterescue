@@ -1,32 +1,49 @@
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 
-const SERVICE_ID = "service_b4i1idl";
-const TEMPLATE_ID = "template_mpbgcui";
-const PUBLIC_KEY = "YLjoPbSLIq25dKE8j";
+// const SERVICE_ID = "service_3lt40pa";
+// const TEMPLATE_ID = "template_wge46dq";
+// const PUBLIC_KEY = "_1JeKVRWgqdhCbJSZ";
 
-emailjs.init(PUBLIC_KEY);
+// emailjs.init(PUBLIC_KEY);
 
 export const emailService = {
-    async sendLocationEmail({ userEmail, petName, address, lat, lng }){
-        // Criamos el link de google maps
-        const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
-        const templateParams = {
-            to_email: userEmail,
-            pet_name: petName,
-            address: address,
-            screenshot_url: googleMapsLink,
-        };
+  async sendLocationEmail({ userEmail, petName, address, lat, lng }) {
 
-        try {
-            const response = await emailjs.send(
-                SERVICE_ID,
-                TEMPLATE_ID,
-                templateParams
-            );
-            return response;
-        } catch (error) {
-            console.error("Erro en el servicio de emails: ", error);
-            throw error;
+    const googleMapsLink =
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
+    try {
+
+      const response = await fetch(
+        "https://api.emailjs.com/api/v1.0/email/send",
+        {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "Origin": "http://localhost"
+            },
+            body: JSON.stringify({
+            service_id: "service_3lt40pa",
+            template_id: "template_wge46dq",
+            user_id: "_1JeKVRWgqdhCbJSZ",
+            accessToken: "krjpYp2LlgQWnYE6G4z5d",
+            template_params: {
+                to_email: userEmail,
+                pet_name: petName,
+                address: address,
+                screenshot_url: googleMapsLink
+            }
+            })
         }
+        );
+      const text = await response.text();
+
+      console.log("Email enviado:", text);
+
+    } catch (error) {
+
+      console.error("Erro enviando email:", error);
+
     }
-}
+  }
+};

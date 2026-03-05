@@ -14,23 +14,27 @@ export default function ModalMailCapture({ visible, onClose }){
             onRequestClose={onClose}
         >
             <View style={styles.overlay}>
-                <View style={styles.iconCircle}>
-                    <Ionicons name="mail-unread-outline" size={50} color="#1a5262" />
+                <View style={styles.container}>
+
+                    <View style={styles.iconCircle}>
+                        <Ionicons name="mail-unread-outline" size={50} color="#1a5262" />
+                    </View>
+
+                    <Text style={styles.title}>¡Ubicación Enviada!</Text>
+
+                    <Text style={styles.message}>
+                        Hemos enviado un correo electrónico con el enlace de Google Maps y los detalles de su mascota
+                    </Text>
+
+                    <Text style={styles.subMessage}>
+                        Revisa tu bandeja de entrada (y la carpeta de spam por si las dudas).
+                    </Text>
+
+                    <TouchableOpacity style={styles.button} onPress={onClose}>
+                        <Text style={styles.buttonText}>Entendido</Text>
+                    </TouchableOpacity>
+
                 </View>
-
-                <Text style={styles.title}>¡Ubicación Enviada!</Text>
-
-                <Text style={styles.message}>
-                    Hemos enviado un correo electrónico con el elance de Google Maps y los detalles de su mascota
-                </Text>
-
-                <Text style={styles.subMessage}>
-                    Revisa tu bandeja de entrada (y la carpeta de spam por si las dudas).
-                </Text>
-
-                <TouchableOpacity style={styles.button} onPress={onClose}>
-                    <Text style={styles.buttonText}>Entendido</Text>
-                </TouchableOpacity>
             </View>
         </Modal>
     )
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: "90%",
-        backgroundColor: "white",
+        backgroundColor: "#fff",
         borderRadius: 25,
         padding: 25,
         alignItems: "center",

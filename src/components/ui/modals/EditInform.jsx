@@ -31,15 +31,33 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
     }, [profileData, visible]);
 
     const pickImage = async () => {
+        try{
+            // 1. Abrir a galeria primeiro!
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ['images'],
             allowsEditing: true,
             aspect: [1, 1],
             quality: 0.7,
         });
 
-        if (!result.canceled){
-            setImage(result.assets[0]);
+        // 2. Verificar se o usuário não cancelou
+        if (!result.canceled) {
+            const asset = result.assets[0];
+            
+            // Aqui você define o estado da imagem para o Modal mostrar o preview
+            setImage({
+                uri: asset.uri,
+                name: asset.fileName || `avatar_${Date.now()}.jpg`,
+                type: asset.mimeType || asset.type || 'image/jpeg'
+            });
+        }
+
+            Alert.alert("Éxito", "Foto actualizada correctamente.");
+        } catch (error){
+            Alert.alert("Error", "No se puede actualizar la foto.");
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
     };
 

@@ -68,14 +68,11 @@ export default function MiPerfil(){
                 }
 
                 // Llamamos el mismo servicio, enviando los datos
-                await userService.editProfile(user.id, { foto_url: profile?.foto_url }, fileToUpload);
+                await userService.editProfile(user.id, profile, fileToUpload);
+                
+                loadData();
 
                 Alert.alert("Éxito", "Foto actualizada correctamente.");
-                setProfile(prev => ({
-                    ...prev,
-                    foto_url: fileToUpload.uri
-                }))
-                loadData();
             } catch (error){
                 Alert.alert("Error", "No se puede actulizar la foto.");
                 console.log(error);
@@ -89,11 +86,12 @@ export default function MiPerfil(){
         loadData();
     }, []);
 
+    
     return(
         <ScrollView>
             <Container>
                 <View style={{ width: 150, height: 150 }}>
-                    <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + " " + profile?.apellido} />
+                    <ImageRoundedAvatar source={{ uri: profile?.foto_url}} alt={profile?.nombre + " " + profile?.apellido} />
                 </View>
 
                 <View >

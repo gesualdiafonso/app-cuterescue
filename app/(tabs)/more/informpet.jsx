@@ -96,12 +96,14 @@ export default function InformPet(){
                     visible={editModal}
                     onClose={() => setEditModal(false)}
                     pet={selectedPet}
+                    onSuccess={refreshPets}
                 />
 
                 <DeletPet
                     visible={deleteModal}
                     onClose={() => setDeleteModal(false)}
                     pet={selectedPet}
+                    onSuccess={refreshPets}
                 />
             </Container>
         </ScrollView>

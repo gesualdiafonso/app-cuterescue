@@ -63,24 +63,20 @@ export default function usePetManager(){
     // 2. Create
     const addPet = async (form, file) => {
         try{
-            const newPet = await petService.createPet(form, user.id, file);
+            const response = await petService.createPet(form, user.id, file);
 
-            console.log("Pet criado", newPet);
-
-            if(!newPet){
-                throw new Error("Nao foi possivel estar encontrnado os dados do pet criado")
-            }
+            // console.log("Pet criado", newPet);
             
-            const petData = Array.isArray(newPet) ? newPet[0] : newPet;
+            const petData = Array.isArray(response) ? response[0] : response;
 
-            if (!petData?.id){
+            if (!petData || !petData?.id){
                 throw new Error("Nao foi possivel obter el ID de pet criado");
             }
 
             // Si hay localización del usuario, vaos a crear la inicial para el pet
             const uLoc = await locationService.getUserLocation(user.id);
             if (uLoc && petData?.id) {
-                await locationService.createInitialPetLocation(newPet.id, user.id, uLoc);
+                await locationService.createInitialPetLocation(response.id, user.id, uLoc);
                 console.log("Localización incial (Dueño) vinculado al pet.")
             }
 
@@ -111,6 +107,7 @@ export default function usePetManager(){
             await petService.deletePet(petId);
             if (selectedPet?.id === petId) setSelectedPet(null);
             await fetchAllData();
+            return true;
         } catch (error) {
             Alert.alert("Error al deletar pet: " + error.message);
             console.error(error);

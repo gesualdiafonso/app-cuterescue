@@ -12,7 +12,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Platform, Keyboard } from "react-native";
 import usePlanLimits from "../../hooks/usePlanLimits";
 
-export default function AddCard(){
+export default function AddCard({ onSuccess }){
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ image, setImage] = useState(null);
@@ -134,6 +134,7 @@ export default function AddCard(){
             const success = await addPet(form, fileToUpload);
 
             if (success) {
+                if (onSuccess) await onSuccess();
                 Alert.alert("Sucesso", "Mascota agregada correctamente.");
                 setForm({
                     nombre: "", especie: "", raza: "", peso: "",

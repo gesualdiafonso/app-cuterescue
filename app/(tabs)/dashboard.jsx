@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 import { View, Text, Alert, ActivityIndicator, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 
 import { Container, ImageRoundedAvatar, Link, TextH1, TextH2 } from "../../src/styles/general.styles";
@@ -43,6 +45,12 @@ export default function Dashboard() {
         }
     }
 
+    useFocusEffect(
+        useCallback(() => {
+            refreshPets()
+        }, [])
+    )
+
     useEffect(() => {
         loadData();
     }, []);
@@ -82,7 +90,7 @@ export default function Dashboard() {
                 {loadingPets ? (
                     <ActivityIndicator color="#22687b" />
                 ) : (
-                    <Pets pets={pets} />
+                    <Pets pets={pets} onSuccess={refreshPets} />
                 )}
             </View>
         </ScrollView>
@@ -118,9 +126,9 @@ const styles = StyleSheet.create({
     },
     buttonLayout: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         width: "100%",
-        marginTop: 10
+        marginTop: 10,
     },
     profileButton: {
         paddingVertical: 10,

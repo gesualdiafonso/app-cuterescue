@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Dropdown } from "react-native-element-dropdown";
 import usePetManager from "../../../hooks/usePetManager";
 
-export default function EditInfoPet({ visible, onClose, pet }){
+export default function EditInfoPet({ visible, onClose, pet, onSuccess }){
 
     const { updatePet } = usePetManager();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,6 +69,7 @@ export default function EditInfoPet({ visible, onClose, pet }){
 
             const success = await updatePet(pet.id, form, fileToUpload );
             if (success) {
+                if (onSuccess) await onSuccess();
                 Alert.alert("Éxito", "Información actualizado");
                 onClose();
             }

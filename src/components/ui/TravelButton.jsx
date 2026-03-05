@@ -47,7 +47,7 @@ export default function TravelButton( { pets }){
     }
 
     return(
-        <View>
+        <View styel={{ width: "100%", flex: 1 }}>  
             <TouchableOpacity style={styles.btn} onPress={() => setVisible(true)}>
                 <Text style={styles.text}>Estoy de viaje</Text>
             </TouchableOpacity>

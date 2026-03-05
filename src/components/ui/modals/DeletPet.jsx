@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { View, Text, Modal, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from "react-native"
 import usePetManager from "../../../hooks/usePetManager"
 
-export default function DeletPet({ visible, onClose, pet }){
+export default function DeletPet({ visible, onClose, pet, onSuccess }){
     const { deletePet } = usePetManager();
     const [loading, setLoading] = useState(false);
 
@@ -10,6 +10,8 @@ export default function DeletPet({ visible, onClose, pet }){
         setLoading(true);
         try {
             await deletePet(pet.id);
+
+            if (onSuccess) await onSuccess();
 
             // 1. cierra el modal
             onClose();

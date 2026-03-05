@@ -2,7 +2,7 @@ import { TouchableOpacity } from "react-native";
 import { useSavedData } from "../../contexts/SaveDataContext";
 import { Card, CardBody, CardImage, ImageCard, TextH3, Paragraph, Stronger } from "../../styles/general.styles";
 
-export default function CardPet({ pet }){
+export default function CardPet({ pet, onSuccess }){
     const { selectedPet, setSelectedPet } = useSavedData();
 
     // verificamos si este pe es lo que está siendo selecionado globalmente

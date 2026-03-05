@@ -52,7 +52,7 @@ export default function EmergencyButton(){
 
 
     return (
-        <View>
+        <View styel={{ width: "100%", flex: 1, }}>
             <TouchableOpacity style={[styles.btn, isEmergency ? styles.btnActive : styles.btnNormal]} onPress={handlePress}>
                 <Text style={styles.text}>
                     {isEmergency ? "Encontré a mi mascota" : "Emergencia"}

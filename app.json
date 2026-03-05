@@ -2,6 +2,7 @@
   "expo": {
     "name": "Cute Rescue App",
     "slug": "app-cuterescue",
+    "platforms": ["android", "ios"],
     "version": "1.0.0",
     "scheme": "cuterescue",
     "orientation": "portrait",
@@ -13,9 +14,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.app-cuterescue"
+      "bundleIdentifier": "com.anonymous.app-cuterescue",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.anonymous.appcuterescue",
@@ -28,18 +33,35 @@
           "apiKey": "AIzaSyBe8FdPmewDIsyCNEUem8lYlSh8Aw99tkQ"
         }
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
-    },
+    // "web": {
+    //   "favicon": "./assets/favicon.png",
+    //   "bundler": "metro"
+    // },
     "plugins": [
       "expo-router",
       "expo-sqlite",
       "expo-asset",
       "@react-native-community/datetimepicker",
       "expo-location"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c6b13c8d-8a65-442e-b6eb-fd4ba80fc690"
+      }
+    },
+    "owner": "gesualdiafonso",
+    "updates": {
+      "url": "https://u.expo.dev/c6b13c8d-8a65-442e-b6eb-fd4ba80fc690"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
   }
 }

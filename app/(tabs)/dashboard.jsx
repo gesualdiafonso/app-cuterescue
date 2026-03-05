@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert, ActivityIndicator, StyleSheet, ScrollView } from "react-native";
+import { View, Text, Alert, ActivityIndicator, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 
 import { Container, ImageRoundedAvatar, Link, TextH1, TextH2 } from "../../src/styles/general.styles";
 
 import { useAuth } from "../../src/contexts/AuthContext"
+
+import Loading from "../../src/components/ui/Loading";
 
 import { userService } from "../../src/services/user.services";
 import Pets from "../../src/components/Pets";
@@ -48,7 +50,7 @@ export default function Dashboard() {
     const handleNavegate = () =>{
         // Botón para navegar
         // navigation.navigate("/(drawer)")
-        router.push("/(drawer)")
+        router.push("/more/profile")
     }
 
     if (loading) return <ActivityIndicator size='large' style={{ flex: 1 }} />
@@ -60,7 +62,13 @@ export default function Dashboard() {
                         <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + profile?.apellido} />
                     </View>
                     <TextH2>{profile?.nombre} {profile?.apellido}</TextH2>
-                    <Link title="Visualizar Perfil" onPress={handleNavegate}/>
+                    <TouchableOpacity 
+                        style={styles.profileButton} 
+                        onPress={handleNavegate}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={styles.profileButtonText}>Visualizar perfil</Text>
+                    </TouchableOpacity>
 
                     <View style={styles.buttonLayout}>
                         <TravelButton />
@@ -113,5 +121,19 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         width: "100%",
         marginTop: 10
-    }
+    },
+    profileButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5, // Sombra no Android
+    },
+    profileButtonText: {
+        color: "#838282",
+        fontSize: 14,
+        textAlign: "center",
+    },
 });

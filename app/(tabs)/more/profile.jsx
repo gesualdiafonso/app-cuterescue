@@ -51,7 +51,7 @@ export default function MiPerfil(){
 
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
+            // mediaTypes: [ImagePicker.MediaType.Images],            allowsEditing: true,
             aspect: [1, 1],
             quality: 0.5,
         });
@@ -59,12 +59,22 @@ export default function MiPerfil(){
         if (!result.canceled) {
             try{
                 setLoading(true);
-                const selectedImage = result.assets[0];
+                const asset = result.assets[0];
+
+                const fileToUpload = {
+                    uri: asset.uri,
+                    name: asset.fileName || `avatar_${Date.now()}.jpg`,
+                    type: asset.mimeType || asset.type || 'image/jpeg'
+                }
 
                 // Llamamos el mismo servicio, enviando los datos
-                await userService.editProfile(user.id, profile, selectedImage);
+                await userService.editProfile(user.id, { foto_url: profile?.foto_url }, fileToUpload);
 
-                Alert.alert("Éxito", "No se puede actualizar la foto.");
+                Alert.alert("Éxito", "Foto actualizada correctamente.");
+                setProfile(prev => ({
+                    ...prev,
+                    foto_url: fileToUpload.uri
+                }))
                 loadData();
             } catch (error){
                 Alert.alert("Error", "No se puede actulizar la foto.");
@@ -96,17 +106,17 @@ export default function MiPerfil(){
 
                 <LineBottom />
 
-                <View>
-                    <TextH3>Información Personal</TextH3>
+                <View style={{ width: '100%'}}>
+                    <TextH3>Información personal</TextH3>
 
                     <View style={{ marginTop: 15, marginBottom: 20 }}>
                         <Paragraph style={{ color: 'black' }}><Stronger>Fecha de nacimiento: </Stronger> <Text>{profile?.fechaNacimiento}</Text></Paragraph>
-                        <Paragraph style={{ color: 'black' }}><Stronger>Genero: </Stronger> <Text>{profile?.genero}</Text></Paragraph>
+                        <Paragraph style={{ color: 'black' }}><Stronger>Género: </Stronger> <Text>{profile?.genero}</Text></Paragraph>
                         <Paragraph style={{ color: 'black' }}><Stronger>Email: </Stronger> <Text>{profile?.email}</Text></Paragraph>
-                        <Paragraph style={{ color: 'black' }}><Stronger>Telefono: </Stronger> <Text>{profile?.telefono}</Text></Paragraph>
+                        <Paragraph style={{ color: 'black' }}><Stronger>Teléfono: </Stronger> <Text>{profile?.telefono}</Text></Paragraph>
                             <Paragraph style={{ color: 'black' }}><Stronger>Documento {profile?.tipoDocumento}: </Stronger> <Text>{profile?.documento}</Text></Paragraph>
                             <Paragraph style={{ color: 'black' }}><Stronger>Plan: </Stronger> <Text>{planNameFormatted}</Text></Paragraph>
-                        <Paragraph style={{ color: 'black' }}><Stronger>Numero de mascotas activas: </Stronger> <Text>{pets ? pets.length : 0}</Text></Paragraph>
+                        <Paragraph style={{ color: 'black' }}><Stronger>Cantidad de mascotas: </Stronger> <Text>{pets ? pets.length : 0}</Text></Paragraph>
                         <Paragraph style={{ color: 'black' }}><Stronger>Ubicación: </Stronger><Text>{profile?.direccion + ", " + profile?.provincia}</Text></Paragraph>
                     </View>
                 </View>
@@ -116,7 +126,7 @@ export default function MiPerfil(){
                         onPress={() => setModalVisible(true)}
                         style={styles.buttonEdit}
                     >
-                        <Text style={{ width: "100%", color: 'black', fontSize: 18, fontWeight: 600, textAlign: "center" }}>Eeditar Información</Text>
+                        <Text style={{ width: "100%", color: 'black', fontSize: 18, fontWeight: 600, textAlign: "center" }}>Editar información</Text>
                     </TouchableOpacity>
 
                     <View style={{ width: "100%", margin: 10, flexDirection: "row", justifyContent: "center", flex: 1, alignItems: "center", padding: 10}}>

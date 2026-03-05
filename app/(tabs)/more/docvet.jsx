@@ -78,7 +78,7 @@ export default function DocVet(){
     return(
         <ScrollView>
             <Container>
-                <TextH2>Documentación Veterinarias</TextH2>
+                <TextH2>Documentación veterinarias</TextH2>
                 {/* Dropdown para seleccionar la mascota */}
 
                 <DropdownSelect pets={pets} />
@@ -93,10 +93,10 @@ export default function DocVet(){
                                     <DocCard key={item.id}>
                                         <CardHeader>
                                             <View style={{ flex: 1 }}>
-                                                <LabelText>
+                                                <LabelText style={{ marginBottom: 10 }}>
                                                     <Stronger style={{ color: 'white'}}> 
                                                         {item.tipo === 'vacuna' ? 'Vacuna: ' : 
-                                                            item.tipo === 'pipeta' ? 'Producto: ' : 'Antiparasitario: '}
+                                                            item.tipo === 'pipeta' ? 'Antipulga: ' : 'Antiparasitario: '}
                                                     </Stronger> 
                                                     <Text>
                                                         {item.tipo_vacuna || item.producto || item.desparasitacion || 'N/A'}
@@ -108,12 +108,12 @@ export default function DocVet(){
                                                 <ValueText>{item.fecha_vencimiento}</ValueText>
                                             </View>
 
-                                            <View style={{ alignItems: 'flex-end'}}>
+                                            {/* <View style={{ alignItems: 'flex-end'}}>
                                                 <LabelText style={{ marginBottom: 5 }}>Alerta:</LabelText>
                                                 <Badge status={item.alerta}>
                                                     <BadgeText>{item.alerta}</BadgeText>
                                                 </Badge>
-                                            </View>
+                                            </View> */}
                                         </CardHeader>
 
                                         <InfoButton onPress={() => handleOpenInfo(item)}>
@@ -122,12 +122,12 @@ export default function DocVet(){
                                     </DocCard>
                                 ))
                             ) : (
-                            <Text>No hay registro de vacunación de mascotas agregadas.</Text>
+                            <Text style={{ marginVertical: 20, textAlign: 'center' }}>No hay registro de vacunación de mascotas agregadas.</Text>
                         )}
                         <AddCard 
                             style={{ 
                                 width: "100%",
-                                backgroundColor: canAddDocument(allDocs.length) ? "rgba(251, 198, 143, 1)" : "rgba(251, 198, 143, 0.5)"
+                                backgroundColor: canAddDocument(allDocs.length) ? "rgb(255, 190, 120)" : "rgba(251, 190, 120, 0.65)"
                             }} 
                             onPress={handleOpenAddModal}
                             

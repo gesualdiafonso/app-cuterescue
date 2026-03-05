@@ -27,7 +27,7 @@ export default function ViewLayout() {
                 <Tabs.Screen
                     name="dashboard"
                     options={{
-                        title: 'Home',
+                        title: 'Inicio',
                         tabBarIcon: ({ color, size }) => (
                             <Ionicons name="home" size={size} color={color} />
                         )
@@ -36,7 +36,7 @@ export default function ViewLayout() {
                 <Tabs.Screen
                     name="track"
                     options={{
-                        title: 'Rastreamento',
+                        title: 'Ubicame',
                         tabBarIcon: ({ color, size }) => (
                             <Ionicons name="location" size={size} color={color} />
                         )

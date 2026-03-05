@@ -49,23 +49,23 @@ const styles = StyleSheet.create({
     content: { 
         width: '80%', 
         backgroundColor: 'white', 
-        padding: 25, 
+        padding: 30, 
         borderRadius: 20, 
         alignItems: 'center',
     },
     title: { 
         fontSize: 20, 
         fontWeight: 600, 
-        color: '#e74c3c', 
+        color: '#f76e2a', 
         marginBottom: 10
      },
     text: { 
         textAlign: 'center', 
-        marginBottom: 20, 
+        marginBottom: 15, 
         fontSize: 16 
     },
     btn: { 
-        backgroundColor: '#e74c3c', 
+        backgroundColor: '#f76e2a', 
         padding: 15, 
         borderRadius: 10, 
         width: '100%' 
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     btnText: { 
         color: 'white', 
         fontWeight: 600, 
-        textAlign: 'center' 
+        textAlign: 'center', 
+        fontSize: 18
     }
 });

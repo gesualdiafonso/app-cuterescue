@@ -89,8 +89,8 @@ export default function ModalInfoDoc({ isOpen, onClose, item, onUpdate, onDelete
                     <ButtonContainer>
                         {isEditing ? (
                             <>
-                                <Button onPress={() => setIsEditing(false)} style={{ backgroundColor: '#F7612A', borderRadius: 10 }}>
-                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Cancelar</ButtonText>
+                                <Button onPress={() => setIsEditing(false)} style={{ borderColor: '#f76e2a', borderWidth: 1, borderRadius: 10 }}>
+                                    <ButtonText style={{ color: '#f76e2a', paddingHorizontal: 20, paddingVertical: 10 }}>Cancelar</ButtonText>
                                 </Button>
                                 <Button onPress={handleSaveEdit} style={{ backgroundColor: '#22687B', borderRadius: 10}}>
                                     <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Guardar</ButtonText>
@@ -101,8 +101,8 @@ export default function ModalInfoDoc({ isOpen, onClose, item, onUpdate, onDelete
                                 <Button onPress={handleStartEdit} style={{ backgroundColor: '#22687B', borderRadius: 10}}>
                                     <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Editar</ButtonText>
                                 </Button>
-                                <Button onPress={confirmDelete} style={{ backgroundColor: '#F7612A', borderRadius: 10 }}>
-                                    <ButtonText style={{ color: 'white', paddingHorizontal: 20, paddingVertical: 10 }}>Eliminar</ButtonText>
+                                <Button onPress={confirmDelete} style={{ borderColor: '#f76e2a', borderWidth: 1, borderRadius: 10 }}>
+                                    <ButtonText style={{ color: '#f76e2a', paddingHorizontal: 20, paddingVertical: 10 }}>Eliminar</ButtonText>
                                 </Button>
                                 <Button onPress={onClose} style={{ backgroundColor: 'white', borderWidth: 1, borderColor: 'black', borderRadius: 10 }}>
                                     <ButtonText style={{ color: '#000', paddingHorizontal: 20, paddingVertical: 10 }}>Cerrar</ButtonText>

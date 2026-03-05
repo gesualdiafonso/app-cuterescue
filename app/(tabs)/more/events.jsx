@@ -48,7 +48,7 @@ export default function Events(){
 
     return(
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-            <Text style={styles.title}>Eventos en Buenos Aires, Capital</Text>
+            <Text style={styles.title}>Eventos en Buenos Aires</Text>
 
             {events.length === 0 ? (
                 <Text style={styles.emptyText}> No hay eventos disponibles actualmente.</Text>
@@ -63,7 +63,7 @@ export default function Events(){
 
                         {event.locations?.length > 0 && (
                             <View style={styles.locationContainer}>
-                                <Text style={styles.locationHeader}>Ubiaciones:</Text>
+                                <Text style={styles.locationHeader}>Ubicaciones:</Text>
                                 {event.locations.map((loc, i) => (
                                     <Text key={i} style={styles.locationItem}>
                                         • <Text style={{ fontWeight: '700' }}>{loc.name}</Text> - {loc.address}

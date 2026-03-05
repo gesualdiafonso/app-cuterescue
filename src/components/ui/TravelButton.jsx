@@ -49,7 +49,7 @@ export default function TravelButton( { pets }){
     return(
         <View>
             <TouchableOpacity style={styles.btn} onPress={() => setVisible(true)}>
-                <Text style={styles.text}>Estoy Viaje</Text>
+                <Text style={styles.text}>Estoy de viaje</Text>
             </TouchableOpacity>
             <ModalTravel 
                 visible={step} 

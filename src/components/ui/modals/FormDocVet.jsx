@@ -50,15 +50,15 @@ export default function FormDocVet({
     return(
         <Modal visible={isOpen} transparent animationType="fade">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <ModalContainer>
+                <ModalContainer >
                     <KeyboardAvoidingView
                         behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={{ width: '100%', alignItems: 'center' }}
                     >
-                        <FormBox>
-                            <Text>Resgistrar Documentación</Text>
+                        <FormBox style={{ width: '100%' }}>
+                            {/* <Text>Registra Documentación</Text> */}
 
-                            <Text>Categoría</Text>
+                            <Text >Categoría</Text>
                             <View style={{
                                 borderWidth: 1,
                                 borderColor: "#ccc",
@@ -78,19 +78,19 @@ export default function FormDocVet({
 
                             <Text>Nombre de {form.tipo === "vacuna" ? 'la vacuna:' : 'del producto'}</Text>
                             <StyledInput
-                                placeholder="Ex: Triple Felnia / Frontiline"
+                                placeholder="Ej: Triple Felina / Frontiline"
                                 value={form.nombre}
                                 onChangeText={(t) => setForm({...form, nombre: t})}
                             />
 
-                            <Text>Data de la Aplicación</Text>
+                            <Text>Fecha de la aplicación</Text>
                             <StyledInput
                                 placeholder="AAAA-MM-DD"
                                 value={form.fecha_aplicacion}
                                 onChangeText={(t) => setForm({...form, fecha_aplicacion: t})}
                             />
 
-                            <Text>Data de la Vencimiento</Text>
+                            <Text>Fecha de la vencimiento</Text>
                             <StyledInput
                                 placeholder="AAAA-MM-DD"
                                 value={form.fecha_vencimiento}
@@ -103,7 +103,7 @@ export default function FormDocVet({
                                 </Button>
 
                                 <Button onPress={handleSave}>
-                                    <ButtonText>Salvar</ButtonText>
+                                    <ButtonText>Guardar</ButtonText>
                                 </Button>
                             </ButtonContainer>
 

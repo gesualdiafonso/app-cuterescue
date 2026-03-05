@@ -49,11 +49,11 @@ export default function InformPet(){
     return(
         <ScrollView>
             <Container>
-                <TextH2 style={{ textAlign: 'end', color: "#22678d" }}>Perfil de Mascota</TextH2>
+                <TextH2 style={{ textAlign: 'center', color: "#22678d" }}>Perfil de mascota</TextH2>
                 {/* Especie de filtrado por mascotas, una vez seleccionado va cambiar el componentente informPet */}
                 {/* Deve vir um tipo label de select para selecionar la mascota que deseas ver o un card que desplaze lateral */}
                 
-                <StyledPickerLabel>Seleccionar Mascota:</StyledPickerLabel>
+                {/* <StyledPickerLabel>Seleccionar mascota:</StyledPickerLabel> */}
                 <SelectContainer>
                     <DropdownSelect pets={pets} />
                 </SelectContainer>
@@ -78,14 +78,14 @@ export default function InformPet(){
                                 onPress={() => setEditModal(true)}
                                 style={{ width: "50%", backgroundColor: '#22687b', padding: 10, borderRadius: 8, marginRight: 10 }}
                             >
-                                <Text style={{ color: '#fff', textAlign: "center" }}>Editar Información</Text>
+                                <Text style={{ color: '#fff', textAlign: "center" }}>Editar información</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity 
                                 onPress={() => setDeleteModal(true)}
-                                style={{ width: "50%", borderColor: '#d9534f', borderWidth: 1, padding: 10, borderRadius: 8, marginLeft: 5 }}
+                                style={{ width: "50%", borderColor: '#f76e2a', borderWidth: 1, padding: 10, borderRadius: 8, marginLeft: 5 }}
                             >
-                                <Text style={{ color: '#d9534f', textAlign: "center" }}>Borrar Mascota</Text>
+                                <Text style={{ color: '#f76e2a', textAlign: "center" }}>Borrar mascota</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

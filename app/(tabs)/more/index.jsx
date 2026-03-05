@@ -28,9 +28,9 @@ export default function More(){
     }
     
     const menuItems = [
-        { id: 'profile', label: 'Mi Perfil', icon: 'person-outline', navigateTo: '/more/profile' },
-        { id: 'plan', label: 'Membresias', icon: 'document-text-outline', navigateTo: '/more/viewplan' },
-        { id: 'report', label: 'Informe de Mascote', icon: 'paw-outline', navigateTo: '/more/informpet' },
+        { id: 'profile', label: 'Mi perfil', icon: 'person-outline', navigateTo: '/more/profile' },
+        { id: 'plan', label: 'Planes', icon: 'document-text-outline', navigateTo: '/more/viewplan' },
+        { id: 'report', label: 'Informe de mascota', icon: 'paw-outline', navigateTo: '/more/informpet' },
         { id: 'documentation', label: 'Documentación', icon: 'folder-open-outline', navigateTo: '/more/docvet' },
         { id: 'events', label: 'Eventos', icon: 'calendar-outline', navigateTo: '/more/events' },
     ]
@@ -68,7 +68,7 @@ export default function More(){
                 <ImageRoundedAvatar src={profile?.foto_url} alt={profile?.nombre + " " + profile?.apellido} />
             </View>
             <View style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: '#ccc', marginBottom: 10 }}>
-                <Text style={{ fontWeight: 600, color: '#22687B' }}>Hola! {profile?.nombre}</Text>
+                <Text style={{ fontWeight: 600, color: '#22687B' }}>¡Hola {profile?.nombre}!</Text>
                 <Text style={{ fontSize: 12, color: 'gray' }}>{profile?.email}</Text>
             </View>
             

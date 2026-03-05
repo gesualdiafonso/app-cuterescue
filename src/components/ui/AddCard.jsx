@@ -167,7 +167,7 @@ export default function AddCard(){
                             {canAddPet ? "+" : "🔒"}
                         </Text>
                         <Text style={[styles.cardText, !canAddPet && { color: '#666' }]}>
-                            {canAddPet ? "Agregar más mascotas" : "Límite de plan alcanzado"}
+                            {canAddPet ? "Agregar mascotas" : "Límite de plan alcanzado"}
                         </Text>
                     </CardBody>
                 </CardAdd>
@@ -182,7 +182,7 @@ export default function AddCard(){
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <View style={styles.header}>
-                            <Text style={styles.modalTitle}> Agregar Nueva Mascota</Text>
+                            <Text style={styles.modalTitle}> Agregar nueva mascota</Text>
                             <TouchableOpacity onPress={handleClose}>
                                 <Text style={styles.closeButton}>X</Text>
                             </TouchableOpacity>
@@ -210,7 +210,7 @@ export default function AddCard(){
                                 data={especieData}
                                 labelField="label"
                                 valueField="value"
-                                placeholder="Seleccione la Especie"
+                                placeholder="Seleccione la especie"
                                 value={form.especie}
                                 onChange={item => setForm({...form, especie: item.value})}
                             />
@@ -232,7 +232,7 @@ export default function AddCard(){
                                 }}
                             >
                                 <Text style={{ color: form.fecha_nacimiento ? '#000' : "#999" }}>
-                                    {form.fecha_nacimiento || "Selecione una fecha"}
+                                    {form.fecha_nacimiento || "Seleccione una fecha"}
                                 </Text>
                             </TouchableOpacity>
 
@@ -278,7 +278,7 @@ export default function AddCard(){
                                 onChangeText={ (val) => setForm({ ...form, peso: val }) } 
                             />
 
-                            <Text styles={styles.label}>Color (kg)*</Text>
+                            <Text styles={styles.label}>Color *</Text>
                             <TextInput 
                                 style={styles.input} 
                                 value={form.color} 
@@ -291,7 +291,7 @@ export default function AddCard(){
                                 data={sexoData}
                                 labelField="label"
                                 valueField="value"
-                                placeholder="Selecione la Especie"
+                                placeholder="Seleccione el sexo"
                                 value={form.sexo}
                                 onChange={item => setForm({...form, sexo: item.value})}
                             />
@@ -311,7 +311,7 @@ export default function AddCard(){
                                 {isSubmitting ? (
                                     <ActivityIndicator color="#fff" />
                                 ) : (
-                                    <Text style={styles.saveButtonText}>Guardar Mascota</Text>
+                                    <Text style={styles.saveButtonText}>Guardar mascota</Text>
                                 )}
                             </TouchableOpacity>
                         </ScrollView>

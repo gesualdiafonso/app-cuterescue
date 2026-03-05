@@ -12,7 +12,7 @@ export default function UbicationButton({ onPress, loading }){
                 {loading ? (
                     <ActivityIndicator color="white" />
                 ) : (
-                    <Text style={styles.btnText}>Enviar Ubiación</Text>
+                    <Text style={styles.btnText}>Enviar ubicación</Text>
                 )}
             </TouchableOpacity>
         </View>

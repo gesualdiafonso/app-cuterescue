@@ -55,7 +55,7 @@ export default function EmergencyButton(){
         <View>
             <TouchableOpacity style={[styles.btn, isEmergency ? styles.btnActive : styles.btnNormal]} onPress={handlePress}>
                 <Text style={styles.text}>
-                    {isEmergency ? "¡Encontré mi Mascota!" : "Emergencia"}
+                    {isEmergency ? "Encontré a mi mascota" : "Emergencia"}
                 </Text>
             </TouchableOpacity>
 
@@ -66,9 +66,7 @@ export default function EmergencyButton(){
                     visible={visible}
                     onClose={confirmEmergency}
                     title="Modo Emergencia activado"
-                    message="
-                        Un alerta fue envíado al chip, la activación de la ubicación en tiempo real ha sido activada, esté atenta en su casilla de mail, active sus notificaciones para que esté ubicando su pet.
-                    "
+                    message="Se activó el rastreo en tiempo real de tu mascota, revisá tu mail y activá las notificaciones para ver su ubicación."
                     advertense="La actualización del movimiento de la mascota se completará en un tiempo estimado de 20 minutos"
                     btnText="Ir al Mapa"
                 />

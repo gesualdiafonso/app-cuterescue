@@ -32,28 +32,29 @@ export const userService = {
      * Podrá editar la Ubicación inicial (de la tabla localizacion_usuario)
      */
     async editProfile(userId, formData, file = null) {
-        let foto_url = FormData.foto_url
+        let foto_url = formData.foto_url
 
         // lógica de upload de imagenes para mobile
         if (file) {
-            const fileName = `${userId}-${Date.now()}.${file.uri.split('.').pop()}`;
+            const fileExt = file.uri.split('.').pop();
+            const fileName = `${userId}-${Date.now()}.${fileExt}`;
 
-            // En react Native, necesita converter la URI para un blob o usar base64
-            const formDataImage = new FormData();
-            formDataImage.append('file', {
-                uri: file.uri,
-                name: fileName,
-                type: file.type || 'image/jpeg',
-            });
+            const response = await fetch(file.uri);
+            const blob = await response.blob();
 
             const { error: uploadError } = await supabase.storage
                 .from("avatars")
-                .upload(fileName, formDataImage);
+                .upload(fileName, blob, {
+                contentType: file.type || 'image/jpeg',
+                });
 
             if (uploadError) throw uploadError;
 
-            const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
-            foto_url = data.publicUrl;
+            const { data } = supabase.storage
+                .from("avatars")
+                .getPublicUrl(fileName);
+
+            foto_url = `${data.publicUrl}?t=${Date.now()}`;;
         }
 
         // 1. Actualiza la tabal usuarios

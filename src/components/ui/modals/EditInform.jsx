@@ -96,7 +96,7 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
                                     onChangeText={(t) => setFormData({...formData, telefono: t})}
                                 />
 
-                                <View style={styles.separator}><Text>Ubicación</Text></View>
+                                <View style={styles.separator}><Text style={{ fontSize: 18, fontWeight: '600', color: '#22687B'}}>Ubicación</Text></View>
 
                                 <Text style={styles.label}>Dirección</Text>
                                 <TextInput 
@@ -115,7 +115,7 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
                                         />
                                 </View>
                                 <View style={{width: '45%'}}>
-                                        <Text style={styles.label}>Cod. Postal</Text>
+                                        <Text style={styles.label}>Cód. Postal</Text>
                                         <TextInput 
                                             style={styles.input} 
                                             value={formData.codigoPostal} 
@@ -126,7 +126,7 @@ export default function EditInform({ visible, onClose, profileData, onUpdateSucc
 
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={onClose}>
-                                        <Text style={{color: '#fff'}}>Cancelar</Text>
+                                        <Text style={{color: '#f76e2a'}}>Cancelar</Text>
                                     </TouchableOpacity>
                                     
                                     <TouchableOpacity style={[styles.btn, styles.btnSave]} onPress={handleSave} disabled={loading}>
@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
         fontSize: 22, 
         fontWeight: 600, 
         marginBottom: 20, 
-        textAlign: 'center' 
+        textAlign: 'center',
+        color: '#22687B'
     },
     label: { 
         fontWeight: 600, 
@@ -189,8 +190,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer: { 
         flexDirection: 'row', 
-        justifyContent: 'space-around', 
-        marginTop: 30 
+        justifyContent: 'space-between', 
+        marginTop: 30,
+        marginBottom: 10,
+        width: "100%"
     },
     btn: { 
         paddingVertical: 12, 
@@ -200,9 +203,19 @@ const styles = StyleSheet.create({
         alignItems: 'center' 
     },
     btnCancel: { 
-        backgroundColor: '#ff4444' 
+        // backgroundColor: '#f76e2a',
+        borderColor: "#f76e2a",
+        borderWidth: 1,
+        width: "100%",
+        flex: 1,
+        marginRight: 10
     },
     btnSave: { 
-        backgroundColor: '#00C851' 
+        backgroundColor: '#22687B',
+        borderColor: "#22687B",
+        borderWidth: 1,
+        width: "100%",
+        flex: 1,
+        marginLeft: 10
     }
 })

@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 
 export const ModalContainer = styled.View`
     flex: 1;
+    width: '100%';
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -13,6 +14,7 @@ export const FormBox = styled.View`
     background-color: white;
     border-radius: 20px;
     padding: 20px;
+    width: '100%';
 `;
 
 export const StyledInput = styled.TextInput`

@@ -31,7 +31,7 @@ export default function ViewPlan(){
     return(
         <S.Container>
             <Text style={{ fontSize: 25, fontWeight: '800', marginBottom: 20, paddingHorizontal: 25, textAlign: 'center', color: '#3D8E88' }}>
-                Planes e Precios de membresias
+                Planes disponibles
             </Text>
 
             <S.PlansWrapper>
